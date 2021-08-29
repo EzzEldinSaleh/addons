@@ -1,0 +1,675 @@
+<odoo>
+
+    <template id="report_commercial_account_invoice_with_tax">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="company" t-value="doc.company_id.sudo()"></t>
+                <t t-if="not doc or not 'company_id' in doc">
+                    <t t-set="company" t-value="res_company"></t>
+                </t>
+
+
+                <!--                <div class="page" style="border: 1px solid black;">-->
+                <div class="page">
+                    <div style="border: 1px solid black;">
+                        <style>
+                            table.table-bordered{
+                            border:1px solid black;
+                            border-left: none;
+                            border-right: none;
+                            }
+
+                            table.table-bordered > thead > tr > th{
+                            border:1px solid black;
+                            }
+                            table.table-bordered > tbody > tr > td{
+                            border:1px solid black;
+                            }
+                            table.table-bordered > tfoot > tr > td{
+                            border:1px solid black;
+                            }
+                            .page .row{
+                            border: 1px solid black;
+                            }
+
+                        </style>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <img t-if="company.logo" style="width:300px; height:100px;"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+                            </div>
+                            <div class="col-xs-6">
+                                <div style="margin-top:15px;">
+                                    <span t-if="company.name_ar" t-esc="company.name_ar"></span>
+                                    <br/>
+                                    <span t-esc="company.name"></span>
+                                    <br/>
+
+                                    <span t-if="company.street" t-esc="company.street"></span>
+                                    <br/>
+                                    <span t-if="company.po_box">po.box :<span t-esc="company.po_box"/>.
+                                    </span>
+
+                                    <span t-if="company.state_id" t-esc="company.state_id.name"/>
+
+                                    <span t-if="company.country_id">
+                                        <span t-if="company.state_id">-</span>
+                                        <span t-esc="company.country_id.name"/>
+                                    </span>
+                                    <br t-if="company.phone or company.fax"/>
+                                    <span t-if="company.phone">Tel:
+                                        <span t-esc="company.phone"/>
+                                    </span>
+                                    <span t-if="company.fax">Fax:
+                                        <span t-esc="company.fax"/>
+                                    </span>
+                                    <br t-if="company.email"/>
+                                    <span t-if="company.email">Email:
+                                        <span t-esc="company.email"/>
+                                    </span>
+                                    <br t-if="company.vat"/>
+                                    <span t-if="company.vat">Tax ID:
+                                        <span t-esc="company.vat"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="height:30px">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-5" style="margin-top:-20px;">
+                                <h3>
+                                    <b>COMMERCIAL INVOICE</b>
+                                </h3>
+                            </div>
+                            <div class="col-xs-3"></div>
+
+                        </div>
+                        <div class="row" style="height:20px"></div>
+
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <b>INVOICE NUMBER</b>
+                                <br/>
+                                <b>COMMERCIAL INVOICE NO.</b>
+                            </div>
+                            <div class="col-xs-3">
+                                <span t-field="doc.number"/>
+                                <br/>
+                                <span t-field="doc.performa_invoice_no"/>
+                            </div>
+
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-2">
+                                <b>DATE</b>
+                                <br/>
+                                <b>B/L NUMBER</b>
+                            </div>
+                            <div class="col-xs-3">
+                                <span t-esc="doc.create_date.strftime('%B %d, %Y')"/>
+                                <br/>
+                                <span t-field="doc.bl_no"/>
+                            </div>
+                        </div>
+                        <div class="row" style="height:20px"></div>
+                        <!--           -->
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <b>APPLICANT/BUYER</b>
+                                <br/>
+                                <b>ADDRESS</b>
+                                <br/>
+                                <b>Tax Id</b>
+                            </div>
+                            <div class="col-xs-9">
+                                <b>
+                                    <span t-field="doc.partner_id.name"/>
+                                </b>
+                                <p>
+                                    <span t-if="doc.partner_id.street" t-esc="doc.partner_id.street"></span>
+                                    <br t-if="doc.partner_id.state_id or doc.partner_id.country_id"/>
+                                    <span t-esc="doc.partner_id.state_id.name"/>
+                                    <span t-if="doc.partner_id.country_id">
+                                        <span t-if="doc.partner_id.state_id.name">-</span>
+                                        <span t-esc="doc.partner_id.country_id.name"/>
+                                    </span>
+                                    <br t-if="doc.partner_id.vat"/>
+                                    <span t-esc="doc.partner_id.vat"/>
+                                </p>
+                            </div>
+
+                            <!--<div class="col-xs-6"></div>-->
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <b>BENEFICIARY/SHIPPER</b>
+                                <br/>
+                                <b>ADDRESS</b>
+                            </div>
+                            <div class="col-xs-9" t-if="doc.beneficiary">
+
+                                <b>
+                                    <span t-field="doc.beneficiary.name"/>
+                                </b>
+
+                                <p>
+                                    <span t-if="doc.beneficiary.street" t-esc="doc.beneficiary.street"/>
+                                    <span t-if="doc.beneficiary.po_box">po.box :
+                                        <span t-esc="doc.beneficiary.po_box"/>
+                                    </span>
+                                    <br t-if="doc.beneficiary.state_id or doc.beneficiary.country_id"/>
+                                    <span t-esc="doc.beneficiary.state_id.name"/>
+                                    <span t-if="doc.beneficiary.country_id">-
+                                        <span t-esc="doc.beneficiary.country_id.name"/>
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                            <!--<div class="col-xs-6"></div>-->
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <b>BENEFICIARY'S BANK DETAILS</b>
+                                <br/>
+                            </div>
+                            <div class="col-xs-9">
+                                <b>
+                                    <span t-field="doc.beneficiary_bank_id.name"/>
+                                </b>
+                                <br/>
+
+                                <span t-if="doc.beneficiary_bank_id.po_box">po.box :
+                                    <span t-esc="doc.beneficiary_bank_id.po_box"/>
+                                </span>
+                                <span t-field="doc.beneficiary_bank_id.street"/>,
+                                <span t-if="doc.beneficiary_bank_id.state_id"
+                                      t-esc="doc.beneficiary_bank_id.state_id.name"/>
+                                <span t-if="doc.beneficiary_bank_id.country_id">
+                                    <span t-if="doc.beneficiary_bank_id.state_id">-</span>
+                                    <span t-esc="doc.beneficiary_bank_id.country_id.name"/>
+                                </span>
+                                <br/>
+
+                                <span t-if="doc.beneficiary_bank_id.phone">Tel:
+                                    <span t-esc="doc.beneficiary_bank_id.phone"/>
+                                </span>
+
+                            </div>
+                            <!--<div class="col-xs-6">-->
+
+                            <!--</div>-->
+                        </div>
+                        <div class="row" style="height:15px"></div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div>
+                                    <b>
+                                        <span>PORT OF LOADING</span>
+                                    </b>
+                                    <br/>
+                                    <span t-field="doc.port_of_loading"/>
+                                </div>
+                                <div style="margin-top:38px">
+                                    <b>
+                                        <span>DELIVERY TERMS</span>
+                                    </b>
+
+                                    <p style="margin-top:22px;">
+                                        <span t-field="doc.incoterm_id.name"/>
+                                    </p>
+                                </div>
+                                <div t-if="doc.letter_credit_ids">
+
+                                    <b>
+                                        <span>L/C NUMBER AND DATE</span>
+                                    </b>
+                                    <br/>
+                                    <span t-field="doc.letter_credit_ids.documentary_credit_number"/>
+                                    DATED
+                                    <span t-esc="doc.letter_credit_ids.date.strftime('%d.%m.%Y')"/>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-6">
+                                <div>
+                                    <b>
+                                        <span>PORT OF DISCHARGE</span>
+                                    </b>
+                                    <br/>
+                                    <span t-field="doc.port_of_discharge"/>
+                                </div>
+                                <div>
+                                    <b>
+                                        <span>PLACE OF DELIVERY</span>
+                                    </b>
+                                    <br/>
+                                    <span t-field="doc.delivery_state_id.name"/>
+                                    -
+                                    <span t-field="doc.delivery_country_id.name"/>
+                                </div>
+                                <div>
+                                    <b>
+                                        <span>PAYMENT TERMS</span>
+                                    </b>
+                                    <p style="margin-top:20px;">
+                                        <span t-field="doc.payment_term_id.name"/>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <b>
+                                        <span>DOCUMENTARY CREDIT ISSUING BANK</span>
+                                    </b>
+                                    <p>
+                                        <span t-field="doc.documentary_credit"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height:20px">
+                            <b style="margin-left:5px;">
+                                <span>DETAILS OF THE GOODS</span>
+                            </b>
+                        </div>
+                        <div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="border-left:none;">SR.NO</th>
+                                        <th style="width:30%">DESCRIPTION OF GOODS AND SERVICES</th>
+                                        <th>NET WEIGHT (MT)</th>
+                                        <th>RATE (USD/MT)</th>
+                                        <th style="border-right:none;">TOTAL VALUE (USD)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="item_nu" t-value="0"/>
+                                    <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                        <tr>
+                                            <t t-set="item_nu" t-value="item_nu+1"/>
+                                            <td style="border-left:none;">
+                                                <span t-esc="item_nu"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.quantity"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="line.price_unit"/>
+                                            </td>
+                                            <td style="border-right:none;">
+                                                <span t-esc="line.price_subtotal"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+<!--                                </tbody>-->
+<!--                                <tbody>-->
+                                    <tr>
+                                        <td style="border:none;"></td>
+                                        <td colspan="5">
+                                            <b>
+                                                <span>TOTAL NUMBER OF BAGS:</span>
+                                                <span t-field="doc.nu_bags"/>
+                                            </b>
+                                            <br/>
+                                            <b>
+                                                <span>COMMODITY PRICE</span>
+                                                <span t-field="doc.commodity_price"/>
+                                            </b>
+                                            <br/>
+                                            <!--<b><span t-field="doc.freight_per_mt"/></b>-->
+                                            <b>
+                                                <span>FREIGHT CHARGE</span>
+                                                <span t-field="doc.freight_charge"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-left:none;" colspan="2">
+                                            <b style="float:right">Subtotal</b>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td style="border-right:none;">
+                                            <b>
+                                                <span t-field="doc.amount_untaxed"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-left:none;" colspan="2">
+                                            <b style="float:right">Tax Amount</b>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td style="border-right:none;">
+                                            <b>
+                                                <span t-field="doc.amount_tax"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-left:none;" colspan="2">
+                                            <b style="float:right">TOTAL</b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <span t-esc="sum(doc.invoice_line_ids.mapped('quantity'))"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <span t-esc="sum(doc.invoice_line_ids.mapped('price_unit'))"/>
+                                            </b>
+                                        </td>
+                                        <td style="border-right:none;">
+                                            <b>
+                                                <span t-field="doc.amount_total"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row" style="border-bottom:none;">
+                            <div class="col-xs-3" style="margin-top:20px;">
+                                <span>AMOUNT IN WORDS:</span>
+                            </div>
+                            <div class="col-xs-9" style="margin-top:20px;">
+                                <span t-if="doc.amount_in_words" t-esc="doc.amount_in_words"/>
+                            </div>
+                        </div>
+
+                        <div class="row" style="border-top:none;" t-if="doc.terms_and_conditions">
+                            <div class="col-xs-7" style="margin-top:30px;">
+                                <p t-esc="doc.terms_and_conditions_id.name">
+                                </p>
+                            </div>
+                        </div>
+
+                        <t t-if="doc.letter_credit_ids">
+                            <div class="row" t-if="doc.show_documentary_credit_number">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F20 Documentary Credit Number:
+                                            <span t-esc="doc.documentary_credit_number"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_date_and_place_of_expiry">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F31D Date And Place Of Expiry:
+                                            <span t-esc="doc.date_of_expiry"/>
+                                            <span t-esc="doc.place_of_expiry"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_issuing_bank">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F52A ISSUING BANK:
+                                            <span t-esc="doc.issuing_bank"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_corresponding_bank">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>CORRESPONDING BANK:
+                                            <span t-esc="doc.corresponding_bank"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_applicant">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F50 Applicant:
+                                            <span t-esc="doc.applicant"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_beneficiary">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F59 Beneficiary:
+                                            <span t-esc="doc.slc_beneficiary"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <!--                        <div class="row" t-if="doc.show_currency_code">-->
+                            <!--                            <div class="col-xs-6">-->
+                            <!--                                <b>-->
+                            <!--                                    <span>F32B Currency Code:-->
+                            <!--                                        <span t-esc="doc.currency_code"/>-->
+                            <!--                                    </span>-->
+                            <!--                                </b>-->
+                            <!--                            </div>-->
+                            <!--                        </div>-->
+                            <div class="row" t-if="doc.show_drafts_at">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F42C Drafts at:
+                                            <span t-esc="doc.drafts_at"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_loading_departure">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F44E Port of Loading/Airport of Departure:
+                                            <span t-esc="doc.loading_departure"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_discharge_destination">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F44F Port of Discharge/Airport of Destination:
+                                            <span t-esc="doc.discharge_destination"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_slc_description">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F45A Description of Goods and/or Services:
+                                            <span t-esc="doc.slc_description"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_documents_required">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F46A Documents Required:
+                                            <span t-esc="doc.documents_required"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_additional_conditions">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F47A Additional Conditions:
+                                            <span t-esc="doc.additional_conditions"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_charges">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F71D Charges:
+                                            <span t-esc="doc.charges"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_advise_through_bank">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F57A Advice Through Bank:
+                                            <span t-esc="doc.advise_through_bank"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_date_of_issue">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F31C Date Of Issue:
+                                            <span t-esc="doc.date_of_issue.strftime('%B %d, %Y')"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_latest_date_of_shipment">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F44C Latest Date Of Shipment:
+                                            <span t-esc="doc.latest_date_of_shipment.strftime('%B %d, %Y')"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+
+                            <div class="row" t-if="doc.show_presentation_period">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F48 Presentation Period:
+                                            <span t-esc="doc.presentation_period"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_partial_shipments">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F43P Partial Shipments:
+                                            <!--                                        <span t-esc="doc.partial_shipments"/>-->
+                                            <span t-esc="dict(doc.fields_get(allfields=['partial_shipments'])['partial_shipments']['selection'])[doc.partial_shipments]"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_transhipment">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F43T Transhipment:
+                                            <!--                                        <span t-esc="doc.transhipment"/>-->
+                                            <span t-esc="dict(doc.fields_get(allfields=['transhipment'])['transhipment']['selection'])[doc.transhipment]"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_confirmation_instructions">
+                                <div class="col-xs-6">
+                                    <b>
+                                        <span>F49 Confirmation Instructions:
+                                            <!--                                        <span t-esc="doc.confirmation_instructions"/>-->
+                                            <span t-esc="dict(doc.fields_get(allfields=['confirmation_instructions'])['confirmation_instructions']['selection'])[doc.confirmation_instructions]"/>
+                                        </span>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row" t-if="doc.show_slc_amount">
+                                <div class="col-xs-6">
+                                    <b>
+                                        F32B LC Amount:
+                                        <span t-esc="doc.slc_currency_id.name"/>
+                                        <span t-esc="doc.slc_amount"/>
+                                    </b>
+                                </div>
+                            </div>
+                            <!--                        <div class="row" t-if="doc.show_slc_currency_id">-->
+                            <!--                            <div class="col-xs-6">-->
+                            <!--                                <b>-->
+                            <!--                                    <span>F32B LC Currency:-->
+                            <!--                                        <span t-field="doc.slc_currency_id"/>-->
+                            <!--                                    </span>-->
+                            <!--                                </b>-->
+                            <!--                            </div>-->
+                            <!--                        </div>-->
+                        </t>
+
+
+                        <!--<div class="row" style="height:20px">-->
+
+                        <!--</div>-->
+                        <!--<div class="row" style="height:20px">-->
+
+                        <!--</div>-->
+                        <!--<div class="row" style="height:40px">-->
+
+                        <!--</div>-->
+                    </div>
+                    <br/>
+                    <div style="border:none !important">
+                        <div>
+                            <b>
+                                <span>FOR AND ON BEHALF OF
+                                    <span t-esc="company.name"/>
+                                </span>
+                            </b>
+                            <p>
+                                <span>SIGNATURE</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="account_commercial_invoice_report_inherit_with_tax"
+              inherit_id="account_invoice_reports.report_commercial_account_invoice">
+        <xpath expr="//div" position="inside">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+        </xpath>
+    </template>
+
+    <record id="paperformat_commercial_account_invoice_with_tax" model="report.paperformat">
+        <field name="name">Commercial Account Invoice Paper Format</field>
+        <field name="format">A4</field>
+        <field name="default" eval="True"/>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">35</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+    </record>
+
+    <report
+            string="Commercial Account Invoice With Tax"
+            id="action_report_commercial_account_invoice_with_tax"
+            model="account.invoice"
+            name="account_invoice_reports.report_commercial_account_invoice_with_tax"
+            file="account_invoice_reports.report_commercial_account_invoice_with_tax"
+            paperformat="account_invoice_reports.paperformat_commercial_account_invoice_with_tax"
+            report_type="qweb-pdf"
+            print_report_name="'Commercial Invoice With Tax %s' % (object.number or '')"
+    />
+</odoo>

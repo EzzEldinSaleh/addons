@@ -1,0 +1,37 @@
+<data>
+
+    <record id="change_partner_form" model="ir.ui.view">
+        <field name="name">change.partner.form</field>
+        <field name="model">change.partner</field>
+        <field name="arch" type="xml">
+            <form string="Change Partner">
+                <group>
+                    <group>
+                        <field name="partner_id"/>
+                    </group>
+                    <group/>
+                </group>
+                <footer>
+                    <button name="change_partner" string="Change Partner" type="object"  class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+<!--    <act_window id="change_partner_wizard_action"-->
+<!--                multi="True"-->
+<!--                key2="client_action_multi" name="Change Partner"-->
+<!--                res_model="change.partner" src_model="account.invoice"-->
+<!--                view_id="change_partner_form"-->
+<!--                view_mode="form" target="new" view_type="form" />-->
+
+    <act_window name="Change Partner"
+                res_model="change.partner"
+                binding_model="account.move"
+                view_mode="form"
+                target="new"
+                id="change_partner_wizard_action"/>
+
+</data>

@@ -1,0 +1,241 @@
+<odoo>
+    <template id="report_beneficiary_bill_of_exchange">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="company" t-value="doc.company_id.sudo()"></t>
+                <t t-if="not doc or not 'company_id' in doc">
+                    <t t-set="company" t-value="res_company"></t>
+                </t>
+
+
+                <div class="page" style="border: 1px solid black;">
+                    <style>
+                        table.table-bordered{
+                        border:1px solid black;
+                        border-left: none;
+                        border-right: none;
+                        }
+
+                        table.table-bordered > thead > tr > th{
+                        border:1px solid black;
+                        }
+                        table.table-bordered > tbody > tr > td{
+                        border:1px solid black;
+                        }
+                        table.table-bordered > tfoot > tr > td{
+                        border:1px solid black;
+                        }
+
+                         table.table-borderless > thead > tr > th{
+                        border: none;
+                        }
+                        table.table-borderless > tbody > tr > td{
+                        border: none;
+                        }
+                        table.table-borderless > tfoot > tr > td{
+                        border: none;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <img t-if="company.logo" style="width:300px; height:100px;"
+                                 t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+                        </div>
+                        <div class="col-xs-6">
+                            <div style="margin-top:15px;">
+                                <span t-if="company.name_ar" t-esc="company.name_ar"></span>
+                                <br/>
+                                <span t-esc="company.name"></span>
+                                <br/>
+
+                                <span t-if="company.street" t-esc="company.street"></span>
+                                <br/>
+                                <span t-if="company.po_box">po.box :<span t-esc="company.po_box"/>.
+                                </span>
+
+                                <span t-if="company.state_id" t-esc="company.state_id.name"/>
+
+                                <span t-if="company.country_id">
+                                    <span t-if="company.state_id">-</span>
+                                    <span t-esc="company.country_id.name"/>
+                                </span>
+                                <br t-if="company.phone or company.fax"/>
+                                <span t-if="company.phone">Tel:
+                                    <span t-esc="company.phone"/>
+                                </span>
+                                <span t-if="company.fax">Fax:
+                                    <span t-esc="company.fax"/>
+                                </span>
+                                <br t-if="company.email"/>
+                                <span t-if="company.email">Email:
+                                    <span t-esc="company.email"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="height:40px; border: 1px solid black;">
+                        <div class="col-xs-3"></div>
+                        <div class="col-xs-6">
+                            <h4>
+                                <b>BENEFICIARY'S DRAFT/BILL OF EXCHANGE</b>
+                            </h4>
+                        </div>
+                        <div class="col-xs-3"></div>
+                    </div>
+                    <div class="row" style="margin:20px; margin-left:0px;">
+                    <div>Date : <span t-esc="doc.date_invoice.strftime('%B %d, %Y')"/> </div>
+
+                    </div>
+                    <div class="row" t-if="doc.letter_credit_ids" style="margin:20px; margin-left: 0px;">
+
+                                <span>L/C NUMBER AND DATE</span>
+                            <br/>
+                           <b><span t-field="doc.letter_credit_ids.name"/> DATED <span t-esc="doc.letter_credit_ids.date.strftime('%d.%m.%Y')"/></b>
+                    </div>
+                     <div class="row" t-if="doc.letter_credit_ids.bank_id" style="margin:20px; margin-left:0px;">
+
+                                <span>L/C ISSUING BANK'S NAME</span>
+                            <br/>
+
+                            <div>
+                                <b>
+                                    <span t-field="doc.letter_credit_ids.beneficiary_bank_id.name"/>
+                                </b>
+                                <br/>
+                                <span t-if="doc.letter_credit_ids.beneficiary_bank_id.po_box">po.box :
+                                    <span t-esc="doc.letter_credit_ids.beneficiary_bank_id.po_box"/>
+                                </span>
+                                <span t-field="doc.letter_credit_ids.beneficiary_bank_id.street"/>,
+                                <span t-if="doc.letter_credit_ids.beneficiary_bank_id.state_id"
+                                      t-esc="doc.letter_credit_ids.beneficiary_bank_id.state_id.name"/>
+                                <span t-if="doc.letter_credit_ids.beneficiary_bank_id.country_id">
+                                    <span t-if="doc.letter_credit_ids.beneficiary_bank_id.state_id">-</span>
+                                    <span t-esc="doc.letter_credit_ids.beneficiary_bank_id.country_id.name"/>
+                                </span>
+                                <br/>
+
+                                <span t-if="doc.letter_credit_ids.beneficiary_bank_id.phone">Tel:
+                                    <span t-esc="doc.letter_credit_ids.beneficiary_bank_id.phone"/>
+                                </span>
+
+                            </div>
+
+
+                    </div>
+                    <div class="row" style="margin:20px; margin-left:0px;">
+                          <table class="table table-borderless">
+                              <tbody>
+                              <tr style="border:none;"><td width="30%" style="border:none;">FOR AMOUNT</td>
+                                  <td style="border:none;"><span t-field="doc.amount_total"/> </td></tr>
+                              <tr style="border:none;"><td width="30%" style="border:none;">IN WORDS</td><td style="border:none;"><span t-field="doc.amount_in_words"/> </td></tr>
+                            </tbody>
+                          </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                                 TO THE ORDER OF
+                                <br/>
+                            <div>
+                                <b>
+                                    <span t-field="doc.beneficiary_bank_id.name"/>
+                                </b>
+                                <br/>
+                                <span t-if="doc.beneficiary_bank_id.po_box">po.box :
+                                    <span t-esc="doc.beneficiary_bank_id.po_box"/>
+                                </span>
+                                <span t-field="doc.beneficiary_bank_id.street"/>,
+                                <span t-if="doc.beneficiary_bank_id.state_id"
+                                      t-esc="doc.beneficiary_bank_id.state_id.name"/>
+                                <span t-if="doc.beneficiary_bank_id.country_id">
+                                    <span t-if="doc.beneficiary_bank_id.state_id">-</span>
+                                    <span t-esc="doc.beneficiary_bank_id.country_id.name"/>
+                                </span>
+                                <br/>
+
+                                <span t-if="doc.beneficiary_bank_id.phone">Tel:
+                                    <span t-esc="doc.beneficiary_bank_id.phone"/>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-6" t-if="doc.letter_credit_ids.bank_id">
+
+                                <span>L/C ISSUING BANK'S NAME</span>
+                            <br/>
+                          <div>
+                                <b>
+                                    <span t-field="doc.letter_credit_ids.beneficiary_bank_id.name"/>
+                                </b>
+                                <br/>
+                                <span t-if="doc.letter_credit_ids.beneficiary_bank_id.po_box">po.box :
+                                    <span t-esc="doc.letter_credit_ids.beneficiary_bank_id.po_box"/>
+                                </span>
+                                <span t-field="doc.letter_credit_ids.beneficiary_bank_id.street"/>,
+                                <span t-if="doc.letter_credit_ids.beneficiary_bank_id.state_id"
+                                      t-esc="doc.letter_credit_ids.beneficiary_bank_id.state_id.name"/>
+                                <span t-if="doc.letter_credit_ids.beneficiary_bank_id.country_id">
+                                    <span t-if="doc.letter_credit_ids.beneficiary_bank_id.state_id">-</span>
+                                    <span t-esc="doc.letter_credit_ids.beneficiary_bank_id.country_id.name"/>
+                                </span>
+                                <br/>
+
+                                <span t-if="doc.letter_credit_ids.beneficiary_bank_id.phone">Tel:
+                                    <span t-esc="doc.letter_credit_ids.beneficiary_bank_id.phone"/>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:120px;">
+                        <div class="col-xs-6">
+                            <b>
+                                <b><u>
+                                    <span>FOR AND ON BEHALF OF
+                                    <span t-esc="company.name"/>
+                                </span>
+
+                                </u></b>
+                            </b>
+                            <p style="margin-top: 50px;">
+                                <span>AUTHORIZED SIGNATURE</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_beneficiary_bill_of_exchange_inherit"
+              inherit_id="account_invoice_reports.report_beneficiary_bill_of_exchange">
+        <xpath expr="//div" position="inside">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+        </xpath>
+    </template>
+
+    <record id="paperformat_report_beneficiary_bill_of_exchange" model="report.paperformat">
+        <field name="name">Beneficiary Bill Of Exchange Format</field>
+        <field name="format">A4</field>
+        <field name="default" eval="True"/>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">35</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+    </record>
+
+    <report
+            string="Beneficiary Bill Of Exchange"
+            id="action_report_beneficiary_bill_of_exchange"
+            model="account.invoice"
+            name="account_invoice_reports.report_beneficiary_bill_of_exchange"
+            file="account_invoice_reports.report_beneficiary_bill_of_exchange"
+            paperformat="account_invoice_reports.paperformat_report_beneficiary_bill_of_exchange"
+            report_type="qweb-pdf"
+            print_report_name="'Beneficiary Bill Of Exchange %s' % (object.number or '')"
+    />
+</odoo>

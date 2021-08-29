@@ -1,0 +1,51 @@
+<data>
+    <record id="inherit_sale_order_form" model="ir.ui.view">
+        <field name="name">inherit.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <!--<field name="groups_id" eval="[(4, ref(''))]"/>-->
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_shipping_id" position="after">
+                <field name="shipping_company_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="inherit_sale_quotation_tree" model="ir.ui.view">
+        <field name="name">inherit.sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <!--<field name="groups_id" eval="[(4, ref(''))]"/>-->
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="shipping_company_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="inherit_sale_order_tree" model="ir.ui.view">
+        <field name="name">inherit.sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <!--<field name="groups_id" eval="[(4, ref(''))]"/>-->
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="shipping_company_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="inherit_sale_order_search" model="ir.ui.view">
+        <field name="name">inherit.sale.order.search</field>
+        <field name="model">sale.order</field>
+        <!--<field name="groups_id" eval="[(4, ref(''))]"/>-->
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='salesperson']" position="before">
+                <filter string="Shipping Company" name="group_by_shipping_company_id" context="{'group_by':'shipping_company_id'}"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+</data>

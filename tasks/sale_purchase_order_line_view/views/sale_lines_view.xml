@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<record id="sale_order_line_pivot" model="ir.ui.view">
+    <field name="name">sale.order.line.pivot</field>
+    <field name="model">sale.order.line</field>
+    <field name="arch" type="xml">
+     <pivot string="Sales Order Lines" sample="1">
+                    <field name="order_id" type="row"/>
+                    <field name="price_subtotal" type="measure"/>
+                </pivot>
+
+    </field>
+</record>
+        <record id="sale_order_line_graph" model="ir.ui.view">
+    <field name="name">sale.order.line.graph</field>
+    <field name="model">sale.order.line</field>
+    <field name="arch" type="xml">
+        <graph string="Sales Order Lines" sample="1">
+                    <field name="order_id"/>
+                    <field name="price_subtotal" type="measure"/>
+                </graph>
+    </field>
+        </record>
+     <record id="sale_order_line_view" model="ir.actions.act_window">
+         <field name="name">Sale Order Lines</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">sale.order.line</field>
+         <field name="view_mode">tree,form,kanban,pivot,graph</field>
+     </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="sale_line_menu" name="Sale Order Lines" parent="sale.menu_sale_report" action="sale_order_line_view" sequence="1"/>
+    </data>
+</odoo>

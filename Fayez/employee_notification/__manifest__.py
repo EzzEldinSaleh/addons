@@ -1,0 +1,1 @@
+{    'name': 'Employee Inherit',    'author': 'Ezz Eldin saleh',    'depends': ['base','hr','mail'],    'data': [        'views/employee_inherit.xml',        'views/setting.xml',        'views/group.xml',        'views/scheduled_action.xml',             ],}

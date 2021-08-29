@@ -1,0 +1,49 @@
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='incoterm_id']" position="attributes">
+                <attribute name="string">Delivery Terms</attribute>
+            </xpath>
+            <field name="payment_term_id" position="after">
+                <field name="nu_bags"/>
+                <field name="freight_per_mt"/>
+                <field name="freight_charge"/>
+                <field name="commodity_price"/>
+            </field>
+            <xpath expr="//field[@name='incoterm_id']" position="after">
+                <field name="performa_invoice_no"/>
+                <field name="bl_no"/>
+                <field name="port_of_loading"/>
+                <field name="port_of_discharge"/>
+                <field name="carrier"/>
+                <field name="carying_vessel"/>
+                <field name="mode_of_shipment"/>
+                <field name="date_of_shipment"/>
+                <field name="lc_nu_date"/>
+                <field name="documentary_credit"/>
+                <field name="beneficiary"/>
+                <field name="to_partner_id"/>
+                <field name="beneficiary_bank_id"
+                       context="{'form_view_ref': 'account_beneficiary_bank.view_account_journal_form_inherit', 'default_type': 'bank', 'type': 'bank'}"/>
+                <field name="delivery_country_id"/>
+                <field name="delivery_state_id"/>
+            </xpath>
+            <field name="user_id" position="after">
+                <field name="amount_in_words"/>
+            </field>
+            <xpath expr="//page/field[@name='comment']" position="replace">
+                <field name="terms_and_conditions_id"/>
+                <button name='%(base_terms_conditions.action_base_terms_and_conditions)d' string="Terms and Conditions"
+                        type="action" icon="fa-arrow-right"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="after">
+                <field name="container"/>
+                <field name="net_weight"/>
+                <field name="gross_weight"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="group_rule_analytic_tag" model="res.groups">
+            <field name="name">Rule Account</field>
+        </record>
+     <record id="record_analytic_account" model="ir.rule">
+         <field name="name">Record Analytic</field>
+         <field name="model_id" search="[('model','=','account.move')]" model="ir.model"/>
+ <field name="domain_force">['|'('invoice_line_ids.analytic_account_id', 'in', user.analytic_account_default_ids),('invoice_line_ids.analytic_account_id','=',False)]</field>
+         <field name="perm_write" eval="1"/>
+         <field name="perm_create" eval="1"/>
+         <field name="perm_read" eval="1"/>
+         <field name="perm_unlink" eval="1"/>
+         <field name="groups" eval="[(4, ref('group_rule_analytic_tag'))]"/>
+     </record>
+
+
+</odoo>

@@ -1,0 +1,297 @@
+<odoo>
+
+    <template id="report_detailed_packing_list">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="company" t-value="doc.company_id.sudo()"></t>
+                <t t-if="not doc or not 'company_id' in doc">
+                    <t t-set="company" t-value="res_company"></t>
+                </t>
+
+
+                <div class="page" style="border: 1px solid black;">
+                    <style>
+                        table.table-bordered{
+                            border:1px solid black;
+                            border-left: none;
+                            border-right: none;
+                            }
+
+                         table.table-bordered > thead > tr > th{
+                                border:1px solid black;
+                        }
+                       table.table-bordered > tbody > tr > td{
+                            border:1px solid black;
+                        }
+                        table.table-bordered > tfoot > tr > td{
+                            border:1px solid black;
+                        }
+                        .page .row{
+                        border: 1px solid black;
+                        }
+
+                    </style>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <img t-if="company.logo" style="width:300px; height:100px;"
+                                 t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+                        </div>
+                        <div class="col-xs-6">
+                            <div style="margin-top:15px;">
+                                <span t-if="company.name_ar" t-esc="company.name_ar"></span><br/>
+                                <span  t-esc="company.name"></span><br/>
+
+                                <span t-if="company.street"  t-esc="company.street"></span>
+                                <br/>
+                                <span t-if="company.po_box">po.box : <span  t-esc="company.po_box"/>.</span>
+
+                                <span  t-if="company.state_id" t-esc="company.state_id.name"/>
+
+                                <span t-if="company.country_id"> <span t-if="company.state_id">- </span>
+                                    <span t-esc="company.country_id.name"/></span>
+                                 <br t-if="company.phone or company.fax"/>
+                                <span t-if="company.phone"> Tel:  <span t-esc="company.phone"/></span>
+                                <span t-if="company.fax">Fax: <span t-esc="company.fax"/></span>
+                                <br t-if="company.email" />
+                                <span t-if="company.email">Email: <span  t-esc="company.email"/></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="height:30px;">
+                        <div class="col-xs-3"></div>
+                        <div class="col-xs-5">
+                            <h4>
+                                <b>DETAILED PACKING LIST, WEIGHT LIST</b>
+                            </h4>
+                        </div>
+                        <div class="col-xs-4"></div>
+                    </div>
+                    <div class="row" style="height:20px"></div>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <b>INVOICE NUMBER</b>
+                            <br/>
+                            <b>PROFORMA INVOICE NO.</b>
+                        </div>
+                        <div class="col-xs-3">
+                            <span t-field="doc.number"/>
+                            <br/>
+                            <span t-field="doc.performa_invoice_no"/>
+                        </div>
+
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-2">
+                            <b>DATE</b>
+                            <br/>
+                            <b>B/L NUMBER</b>
+                        </div>
+                        <div class="col-xs-3">
+                            <span t-esc="doc.create_date.strftime('%B %d, %Y')"/>
+                            <br/>
+                            <span t-field="doc.bl_no"/>
+                        </div>
+                    </div>
+                    <div class="row" style="height:20px"></div>
+                    <!--           -->
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <b>APPLICANT/BUYER</b>
+                            <br/>
+                            <b>ADDRESS</b>
+                        </div>
+                        <div class="col-xs-9">
+                            <b>
+                                <span t-field="doc.partner_id.name"/>
+                            </b>
+                            <p>
+                                <span t-if="doc.partner_id.street"  t-esc="doc.partner_id.street"></span><br t-if="doc.partner_id.state_id or doc.partner_id.country_id"/>
+                                <span t-esc="doc.partner_id.state_id.name"/>
+                                <span t-if="doc.partner_id.country_id"> <span t-if="doc.partner_id.state_id.name"> - </span>
+                                    <span t-esc="doc.partner_id.country_id.name"/></span>
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <b>BENEFICIARY/SHIPPER</b>
+                            <br/>
+                            <b>ADDRESS</b>
+                        </div>
+                        <div class="col-xs-9" t-if="doc.beneficiary">
+
+                            <b>
+                                <span t-field="doc.beneficiary.name"/>
+                            </b>
+
+                            <p>
+                                <span  t-if="doc.beneficiary.street" t-esc="doc.beneficiary.street"/>  <span t-if="doc.beneficiary.po_box">po.box : <span  t-esc="doc.beneficiary.po_box"/></span>
+                                <br t-if="doc.beneficiary.state_id or doc.beneficiary.country_id"/>
+                                <span t-esc="doc.beneficiary.state_id.name"/>
+                                <span t-if="doc.beneficiary.country_id"> - <span t-esc="doc.beneficiary.country_id.name"/></span>
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <b>BENEFICIARY'S BANK DETAILS</b>
+                            <br/>
+                        </div>
+                        <div class="col-xs-9">
+                            <b>
+                                <span t-field="doc.beneficiary_bank_id.name"/>
+                            </b>
+                               <br/>
+                                <span t-if="doc.beneficiary_bank_id.po_box">po.box : <span  t-esc="doc.beneficiary_bank_id.po_box"/>  </span>
+                                <span t-field="doc.beneficiary_bank_id.street"/>,
+                                <span t-if="doc.beneficiary_bank_id.state_id" t-esc="doc.beneficiary_bank_id.state_id.name"/>
+                                <span t-if="doc.beneficiary_bank_id.country_id">
+                                    <span t-if="doc.beneficiary_bank_id.state_id">-</span> <span t-esc="doc.beneficiary_bank_id.country_id.name"/></span>
+                                   <br/>
+
+                                <span t-if="doc.beneficiary_bank_id.phone" >Tel: <span t-esc="doc.beneficiary_bank_id.phone"/></span>
+                        </div>
+                    </div>
+                    <div class="row" style="height:15px"></div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div>
+                                <b>
+                                    <span>PORT OF LOADING</span>
+                                </b>
+                                <br/>
+                                <span t-field="doc.port_of_loading"/>
+                            </div>
+                            <div style="margin-top:38px">
+                                <b>
+                                    <span>DELIVERY TERMS</span>
+                                </b>
+
+                                <p style="margin-top:22px;"><span t-field="doc.incoterm_id.name"/></p>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div>
+                                <b>
+                                    <span>PORT OF DISCHARGE</span>
+                                </b>
+                                <br/>
+                                <span t-field="doc.port_of_discharge"/>
+                            </div>
+                            <div>
+                                <b>
+                                    <span>PLACE OF DELIVERY</span>
+                                </b>
+                                <br/>
+                                <span t-field="doc.delivery_state_id.name"/>
+                                -
+                                <span t-field="doc.delivery_country_id.name"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div  t-if="doc.letter_credit_ids" style="margin-bottom: 20px;">
+
+                                <b><span>L/C NUMBER AND DATE</span></b>
+                            <br/>
+                           <span t-field="doc.letter_credit_ids.name"/> DATED <span t-esc="doc.letter_credit_ids.date.strftime('%d.%m.%Y')"/>
+                    </div>
+
+                    <div  style="height:20px"><b style="margin-left:5px;"> <span>LOT WISE DETAILS OF THE GOODS</span></b></div>
+                     <div>
+                         <table class="table table-bordered">
+                             <thead>
+                                 <tr>
+                                    <th style="border-left:none;">SR.NO</th>
+                                    <th style="width:40%">DESCRIPTION OF GOODS AND SERVICES</th>
+                                    <th>CONTAINER</th>
+                                    <th>NET WEIGHT (MT)</th>
+                                    <th>GROSS WEIGHT (MT)</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <t t-set="item_nu" t-value="0"/>
+                                 <t  t-foreach="doc.invoice_line_ids" t-as="line">
+                                     <tr>
+                                         <t t-set="item_nu" t-value="item_nu+1"/>
+                                         <td style="border-left:none;"><span t-esc="item_nu"/></td>
+                                         <td><span t-esc="line.name"/> </td>
+                                         <td><span t-esc="line.container"/> </td>
+                                         <td><span t-esc="line.net_weight"/> </td>
+                                         <td><span t-esc="line.gross_weight"/> </td>
+                                     </tr>
+                                 </t>
+                             </tbody>
+                             <tfoot>
+                                  <tr>
+                                      <td style="border-left:none;"></td>
+                                      <td  colspan="2">
+                                          <b style="float:left">TOTAL</b>
+                                      </td>
+                                      <td>
+                                          <span t-esc="sum(doc.invoice_line_ids.mapped('net_weight'))"/>
+                                      </td>
+
+                                       <td style="border-right:none;">
+                                           <span t-esc="sum(doc.invoice_line_ids.mapped('gross_weight'))"/>
+                                       </td>
+                                  </tr>
+                             </tfoot>
+                         </table>
+                     </div>
+
+                    <div class="row"  t-if="doc.terms_and_conditions">
+                        <div class="col-xs-7" style="margin-top:30px;">
+                             <p t-esc="doc.terms_and_conditions">
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <b><span>FOR AND ON BEHALF OF <span t-esc="company.name"/> </span></b>
+                            <p>
+                                <span>SIGNATURE</span>
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_detailed_packing_list_inherit"
+              inherit_id="account_invoice_reports.report_detailed_packing_list">
+        <xpath expr="//div" position="inside">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+        </xpath>
+    </template>
+
+    <record id="paperformat_report_detailed_packing_list" model="report.paperformat">
+        <field name="name">Detailed Packing List Paper Format</field>
+        <field name="format">A4</field>
+        <field name="default" eval="True"/>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">35</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+    </record>
+
+    <report
+            string="Detailed Packing List"
+            id="action_report_detailed_packing_list"
+            model="account.invoice"
+            name="account_invoice_reports.report_detailed_packing_list"
+            file="account_invoice_reports.report_detailed_packing_list"
+            paperformat="account_invoice_reports.paperformat_report_detailed_packing_list"
+            report_type="qweb-pdf"
+            print_report_name="'Detailed Packing List  %s' % (object.number or '')"
+    />
+</odoo>

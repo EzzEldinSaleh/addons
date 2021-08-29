@@ -1,0 +1,39 @@
+<odoo>
+<!--notes view-->
+
+    <record id="base_terms_and_conditions_view_tree" model="ir.ui.view">
+        <field name="name">base.terms.and.conditions.view.tree</field>
+        <field name="model">base.terms.and.conditions</field>
+        <field name="arch" type="xml">
+            <tree string="Note">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="base_terms_and_conditions_view_form" model="ir.ui.view">
+        <field name="name">base.terms.and.conditions.view.tree</field>
+        <field name="model">base.terms.and.conditions</field>
+        <field name="arch" type="xml">
+            <form string="Note">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_base_terms_and_conditions" model="ir.actions.act_window">
+        <field name="name">Terms and Conditions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">base.terms.and.conditions</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+             Add New Terms And Conditions
+          </p>
+        </field>
+    </record>
+</odoo>

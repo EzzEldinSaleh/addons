@@ -1,0 +1,21 @@
+<odoo>
+
+
+     <record id="view_account_journal_form_inherit" model="ir.ui.view">
+            <field name="name">view.account.bank.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_bank_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="bank_id"  position="after">
+                   <field name="street"/>
+                   <field name="country_id"/>
+                   <field name="state_id"/>
+                   <field name="po_box"/>
+                   <field name="swft"/>
+                   <field name="iban"/>
+                   <field name="use_in_invoice" attrs="{'invisible': [('type', '!=', 'bank')]}"/>
+                </field>
+            </field>
+        </record>
+
+</odoo>

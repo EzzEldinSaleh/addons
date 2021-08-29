@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ben_rental_pricing_id,ben_rental_pricing_name,model_ben_rental_pricing,group_rental_pricing,1,1,1,1
+pricing_pricing_id,pricing_pricing_name,model_pricing_pricing,group_rental_pricing,1,1,1,1
+late_return_id,late_return_name,model_late_return,group_rental_pricing,1,1,1,1
+difference_return_id,difference_return_name,model_difference_return,group_rental_pricing,1,1,1,1

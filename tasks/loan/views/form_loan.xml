@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="loan_form_id" model="ir.ui.view">
+           <field name="name">loan.form</field>
+           <field name="model">loan</field>
+           <field name="arch" type="xml">
+               <form string="Loans">
+                   <header>
+                       <button name="action_create_loanline" type="object" string="Compute Line"/>
+                       <button name="action_confirm" type="object" states='d' string="Confirm"/>
+                       <button name="action_cancel" type="object" states='d,co,do' string="Cancel"/>
+                       <button name="action_create_invoice" type="object" states='do' string="Create Payment"/>
+                       <button name="action_set_draft" type="object" states='c' string="Set Draft"/>
+                       <field name="state" widget="statusbar"/>
+                   </header>
+
+                   <sheet>
+                       <div class="oe_button_box" name="button_box">
+                               <button name="invoice_num"
+                                       type="object"
+                                       class="oe_stat_button"
+                                       icon="fa-book">
+                                   <field string="Payments" name="num_invoices" widget="statinfo"/>
+                               </button>
+                       </div>
+                       <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group name="header">
+                        <group name="partner">
+                            <field name="partner_id" widget="res_partner_many2one"/>
+                                <field name="date"/>
+                            <field name="pay"/>
+                            <field name="d_or_m_or_y"/>
+                            </group>
+                        <group name="loans">
+
+                            <field name="loan_amount" invisible="1"/>
+
+                                <field name="total"/>
+                                                        <field name="num_of_loan"/>
+
+                                                        <field name="first_amount"/>
+
+
+                        </group>
+                    </group>
+                       <notebook>
+                           <page string="Loan Lines">
+                               <group>
+                                  <field name="loans_ids" nolabel="1" widget="section_and_note_one2many" mode="tree">
+                                <tree editable="bottom">
+                                    <control>
+                                        <create name="add_product_control" string="Add a Line"/>
+                                        <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                        <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                    </control>
+                                    <field name="date" />
+                                    <field name="number" />
+                                    <field name="payment_id" />
+                                   <field name="amount" />
+                                   <field name="is_paid" />
+
+                                </tree>
+                        </field>
+                               </group>
+                           </page>
+                       </notebook>
+
+
+                   </sheet>
+<div class="oe_chatter">
+         <field name="message_follower_ids" widget="mail_followers"/>
+         <field name="message_ids" widget="mail_thread"/>
+    <field name="activity_ids"/>
+
+</div>
+               </form>
+           </field>
+       </record>
+<record id="loan_view_activity" model="ir.ui.view">
+<field name="name">loan.activity</field>
+<field name="model">loan</field>
+<field name="arch" type="xml">
+    <activity string="Loans">
+        <templates>
+            <div t-name="activity-box">
+                    <div>
+                         <field name="name" display="full"/>
+                                <field name="partner_id" muted="1" display="full"/>
+                    </div>
+
+            </div>
+        </templates>
+    </activity>
+</field>
+        </record>
+                <record id="loan_view_pivot" model="ir.ui.view">
+<field name="name">loan.pivot</field>
+<field name="model">loan</field>
+<field name="arch" type="xml">
+         <pivot string="Loans" sample="1">
+                   <field name="date" type="row" interval="day"/>
+
+                   <field name="num_of_loan" type="measure"/>
+               </pivot>
+</field>
+                </record>
+<record id="loan_tree_id" model="ir.ui.view">
+    <field name="name">loan.tree</field>
+    <field name="model">loan</field>
+    <field name="arch" type="xml">
+        <tree string="Loans">
+            <field name="name"/>
+            <field name="partner_id"/>
+        </tree>
+    </field>
+</record>
+        <record id="loan_action_id" model="ir.actions.act_window">
+            <field name="name">Loans</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">loan</field>
+            <field name="view_mode">tree,form,activity,pivot</field>
+
+        </record>
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="loat_root_menu" name="loan" sequence="3"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="loan_menu" name="loan" parent="loat_root_menu" action="loan_action_id" sequence="5"/>
+    </data>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="travel_id_allllow" model="ir.ui.view">
+           <field name="name">hr.travelform</field>
+           <field name="model">hr.travel</field>
+           <field name="arch" type="xml">
+               <form string="Travel">
+                   <sheet>
+                       <group>
+                           <field name="employee_id"/>
+                           <field name="date_from"/>
+                           <field name="date_to"/>
+                           <field name="amount"/>
+                           <field name="duration"/>
+                           <field name="travel_type"/>
+                       </group>
+                   </sheet>
+               </form>
+           </field>
+       </record>
+<record id="travel_id_tree" model="ir.ui.view">
+    <field name="name">travel.hr.tree</field>
+    <field name="model">hr.travel</field>
+    <field name="arch" type="xml">
+        <tree string="Travel">
+            <field name="employee_id"/>
+        </tree>
+    </field>
+</record>
+<record id="travel_action_id" model="ir.actions.act_window">
+    <field name="name">Travel</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">hr.travel</field>
+    <field name="view_mode">tree,form</field>
+</record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="action_menu_travel" name="Travel" parent="hr_award" action="travel_action_id" sequence="3"/>
+    </data>
+</odoo>

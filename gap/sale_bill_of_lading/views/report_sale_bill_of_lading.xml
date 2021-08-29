@@ -1,0 +1,251 @@
+<odoo>
+
+    <template id="report_sale_bl">
+        <t t-call="web.html_container">
+
+            <div class="page">
+                <style>
+
+                    <!--.page .row > div{-->
+                    <!--border: 1px solid black;-->
+                    <!--}-->
+
+                    table.table-bordered{
+                    border:1px solid black;
+                    }
+
+                    table.table-bordered > thead > tr > th{
+                    border:1px solid black;
+                    }
+                    table.table-bordered > tbody > tr > td{
+                    border:1px solid black;
+                    }
+                    table.table-bordered > tfoot > tr > td{
+                    border:1px solid black;
+                    }
+
+
+                </style>
+                <h3 style="text-align:center;">BILL OF LADING INSTRUCTIONS</h3>
+
+                <t t-foreach="docs" t-as="doc">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td colspan="4">
+                                    <b>Shipper</b>
+                                    <br/>
+                                    <p>
+                                        <span  t-if="doc.shipper_id" t-esc="doc.shipper_id.name"></span><br/>
+                                        <span t-if="doc.shipper_id.street"  t-esc="doc.shipper_id.street"></span>
+                                        <br/>
+                                        <span t-if="doc.shipper_id.po_box">po.box : <span  t-esc="doc.shipper_id.po_box"/></span>
+                                        <span  t-if="doc.shipper_id.state_id" t-esc="doc.shipper_id.state_id.name"/>
+                                        <span t-if="doc.shipper_id.country_id"> <span t-if="doc.shipper_id.state_id">- </span>
+                                            <span t-esc="doc.shipper_id.country_id.name"/></span>
+                                         <br/>
+                                        <span t-if="doc.shipper_id.phone"> Tel:  <span t-esc="doc.shipper_id.phone"/></span>
+                                    </p>
+                                </td>
+
+                                <td rowspan="3"  colspan="2">
+                                    <b>Second Notify Party</b>
+                                    <br/>
+                                    <p>
+                                        <span  t-if="doc.second_notify_party_id" t-esc="doc.second_notify_party_id.name"></span><br/>
+                                        <span t-if="doc.second_notify_party_id.street"  t-esc="doc.second_notify_party_id.street"></span>
+                                        <br/>
+                                        <span t-if="doc.second_notify_party_id.po_box">po.box : <span  t-esc="doc.second_notify_party_id.po_box"/></span>
+                                        <span  t-if="doc.second_notify_party_id.state_id" t-esc="doc.second_notify_party_id.state_id.name"/>
+                                        <span t-if="doc.second_notify_party_id.country_id"> <span t-if="doc.second_notify_party_id.state_id">- </span>
+                                            <span t-esc="doc.second_notify_party_id.country_id.name"/></span>
+                                         <br/>
+                                        <span t-if="doc.second_notify_party_id.phone"> Tel:  <span t-esc="doc.second_notify_party_id.phone"/></span>
+                                    </p>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <b>Consignee</b>
+                                    <br/>
+                                    <p>
+                                        <span  t-if="doc.consignee_id" t-esc="doc.consignee_id.name"></span><br/>
+                                        <span t-if="doc.consignee_id.street"  t-esc="doc.consignee_id.street"></span>
+                                        <br/>
+                                        <span t-if="doc.consignee_id.po_box">po.box : <span  t-esc="doc.consignee_id.po_box"/></span>
+                                        <span  t-if="doc.consignee_id.state_id" t-esc="doc.consignee_id.state_id.name"/>
+                                        <span t-if="doc.consignee_id.country_id"> <span t-if="doc.consignee_id.state_id">- </span>
+                                            <span t-esc="doc.consignee_id.country_id.name"/></span>
+                                         <br/>
+                                        <span t-if="doc.consignee_id.phone"> Tel:  <span t-esc="doc.consignee_id.phone"/></span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <b>First Notify Party</b>
+                                    <br/>
+                                    <p>
+                                        <span  t-if="doc.first_notify_party_id" t-esc="doc.first_notify_party_id.name"></span><br/>
+                                        <span t-if="doc.first_notify_party_id.street"  t-esc="doc.first_notify_party_id.street"></span>
+                                        <br/>
+                                        <span t-if="doc.first_notify_party_id.po_box">po.box : <span  t-esc="doc.first_notify_party_id.po_box"/></span>
+                                        <span  t-if="doc.first_notify_party_id.state_id" t-esc="doc.first_notify_party_id.state_id.name"/>
+                                        <span t-if="doc.first_notify_party_id.country_id"> <span t-if="doc.first_notify_party_id.state_id">- </span>
+                                            <span t-esc="doc.first_notify_party_id.country_id.name"/></span>
+                                         <br/>
+                                        <span t-if="doc.first_notify_party_id.phone"> Tel:  <span t-esc="doc.first_notify_party_id.phone"/></span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <b>Vessel (s)</b>
+                                    <p t-if="doc.vessel" t-field="doc.vessel"></p>
+                                </td>
+                                <td >
+                                    <b>Voyage No.</b>
+                                    <p t-if="doc.voyage_no" t-field="doc.voyage_no"></p>
+                                </td>
+                                <td >
+                                    <b>Port Of Lading</b>
+                                    <p t-if="doc.port_of_lading" t-field="doc.port_of_lading"></p>
+                                </td>
+                                <td  colspan="2">
+                                    <b>Port Of Discharge</b>
+                                    <p t-if="doc.port_of_discharge" t-field="doc.port_of_discharge"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%" colspan="3">
+                                    <b>Place Of Receipt</b>
+                                    <p t-if="doc.place_of_receipt" t-field="doc.place_of_receipt"></p>
+                                </td>
+                                <td width="30%">
+                                    <b>Place Of Delivery</b>
+                                    <p t-if="doc.place_of_delivery" t-field="doc.place_of_delivery"></p>
+                                </td>
+                                <td width="50%" colspan="2">
+                                    <b>Number Of Original B/L</b>
+                                    <p t-if="doc.no_original_bl" t-field="doc.no_original_bl"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Container Nos</b></td>
+                                <td><b>Seal Nos.</b></td>
+                                <td><b>No. of Container</b></td>
+                                <td ><b>ITEM/DESCRIPTION</b></td>
+                                <td><b>Gross Weight(KGS)</b></td>
+                                <td><b>Measures</b></td>
+                            </tr>
+                            <tr>
+                                <td><span t-field="doc.container_nos"/></td>
+                                <td><span t-field="doc.seal_nos"/></td>
+                                <td><span t-field="doc.nu_container"/></td>
+                                <td style="border-bottom:0px;"><span t-field="doc.description"/></td>
+                                <td><span t-field="doc.gross_weight"/></td>
+                                <td><span t-field="doc.measures"/></td>
+                            </tr>
+                            <tr>
+                            <td colspan="3"></td>
+                            <td style="border-top:0px;">
+                                <p>
+                                    <t t-if="doc.nu_package"> QUANTITY: <span t-field="doc.nu_package"/> <br/> </t>
+                                    <t t-if="doc.total_net_weight"> NET WEIGHT: <span t-field="doc.total_net_weight"/> <br/> </t>
+                                    <t t-if="doc.total_gross_weight"> GROSS WEIGHT: <span t-field="doc.total_gross_weight"/> <br/> </t>
+                                    <t t-if="doc.freight"> <span t-esc="doc.freight.upper()"/> <br/> </t>
+                                    <t t-if="doc.shipment"><span t-esc="doc.shipment.upper()"/> <br/> </t>
+                                </p>
+                            </td>
+                            <td colspan="2"></td>
+                        </tr>
+                            <tr>
+                                <td style="border-right:0px;"></td>
+                                <td colspan="3" style="border-left:0px;"> <b>Above particulars as declared by shipper</b></td>
+                                 <td rowspan="2" colspan="2">
+                                     In witness Whereof this number of
+                                     original Bill of Lading stated all of the tenor and date one of
+                                     which being accomplished the other stand void
+                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <b>FREIGHT &amp; CHARGES</b>
+                                    <p t-if="doc.freight_and_charges" t-field="doc.freight_and_charges">
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                         <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <b>Remarks</b>
+                                    <p t-if="doc.remarks" t-field="doc.remarks">
+
+                                    </p>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!--<table class="table table-bordered">-->
+                        <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th>Container Nos</th>-->
+                                <!--<th>Seal Nos.</th>-->
+                                <!--<th width="30%">ITEM/DESCRIPTION</th>-->
+                                <!--<th>Gross Weight(KGS)</th>-->
+                                <!--<th>Measures</th>-->
+                            <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                            <!--<tr>-->
+                                <!--<td></td>-->
+                                <!--<td></td>-->
+                                <!--<td></td>-->
+                                <!--<td></td>-->
+                                <!--<td></td>-->
+                            <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                    <!--<table>-->
+                      <!--<tbody>-->
+                          <!--<tr></tr>-->
+                      <!--</tbody>-->
+
+                    <!--</table>-->
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_sale_bl_inherit"
+              inherit_id="sale_bill_of_lading.report_sale_bl">
+        <xpath expr="//div" position="inside">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+        </xpath>
+    </template>
+
+    <record id="paperformat_sale_bl" model="report.paperformat">
+        <field name="name">Sale Bill Of Lading</field>
+        <field name="format">A4</field>
+        <field name="default" eval="True"/>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">35</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_line" eval="False"/>
+    </record>
+
+    <report
+            string="BL Report"
+            id="action_report_sale_bl"
+            model="sale.bill.of.lading"
+            name="sale_bill_of_lading.report_sale_bl"
+            file="sale_bill_of_lading.report_sale_bl"
+            paperformat="sale_bill_of_lading.paperformat_sale_bl"
+            report_type="qweb-pdf"
+            print_report_name="'Bill Of Lading %s' % (object.bl_seq or '')"
+    />
+</odoo>

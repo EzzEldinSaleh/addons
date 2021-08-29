@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="award_form_id" model="ir.ui.view">
+           <field name="name">award.hr</field>
+           <field name="model">hr.award</field>
+           <field name="arch" type="xml">
+               <form string="Award">
+                     <header>
+                   <button name="button_co" type="object" states='draft' string="Confirm"/>
+                   <button name="button_do" type="object" states='confirm' string="Done"/>
+                   <button name="button_set_draft" type="object" states='done' string="Set Draft"/>
+                   <field name="state" widget="statusbar"/>
+                     </header>
+                   <sheet>
+                       <group>
+                           <field name="name"/>
+                           <field name="date"/>
+                           <field name="amount"/>
+                       </group>
+                       <notebook>
+                           <page string="Notes">
+                               <group>
+                                   <field name="note"/>
+                               </group>
+                           </page>
+                       </notebook>
+                   </sheet>
+               </form>
+           </field>
+       </record>
+
+    <record id="award_tree_id" model="ir.ui.view">
+        <field name="name">hr.award.tree</field>
+        <field name="model">hr.award</field>
+        <field name="arch" type="xml">
+            <tree string="Award">
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+        <record id="award_action_id" model="ir.actions.act_window">
+            <field name="name">Hr Customize</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.award</field>
+            <field name="view_mode">tree,form</field>
+
+        </record>
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="hr_award" name="Hr customize" sequence="3"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hr_award_action_menu" name="Award" parent="hr_award" action="award_action_id" sequence="1"/>
+    </data>
+</odoo>

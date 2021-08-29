@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="name">view.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+           <field name="name" position="after">
+               <field name="name_ar" placeholder="Arabic Name" required="1"/>
+           </field>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="fax"/>
+                <field name="po_box"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

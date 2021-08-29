@@ -1,0 +1,6 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+extra,extras,model_extra_location,,1,1,1,1
+
+
+
+

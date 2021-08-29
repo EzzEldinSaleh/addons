@@ -1,0 +1,5 @@
+<data>
+    <record id="group_rental_pricing" model="res.groups">
+        <field name="name">Rental Pricing</field>
+    </record>
+</data>

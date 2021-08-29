@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<record id="purchase_order_line_pivot" model="ir.ui.view">
+    <field name="name">purchase.order.line.pivot</field>
+    <field name="model">purchase.order.line</field>
+    <field name="arch" type="xml">
+     <pivot string="Purchase Order Lines" sample="1">
+                    <field name="order_id" type="row"/>
+                    <field name="price_subtotal" type="measure"/>
+                </pivot>
+
+    </field>
+</record>
+        <record id="po_order_line_graph" model="ir.ui.view">
+    <field name="name">po.order.line.graph</field>
+    <field name="model">purchase.order.line</field>
+    <field name="arch" type="xml">
+        <graph string="Purchase Order Lines" sample="1">
+                    <field name="order_id"/>
+                    <field name="price_subtotal" type="measure"/>
+                </graph>
+    </field>
+        </record>
+     <record id="purchase_order_line_view" model="ir.actions.act_window">
+         <field name="name">Purchase Order Lines</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">purchase.order.line</field>
+         <field name="view_mode">tree,form,kanban,pivot,graph</field>
+     </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="purchase_line_menu" name="Purchase Order Lines" parent="purchase.purchase_report" action="purchase_order_line_view" sequence="3"/>
+    </data>
+</odoo>

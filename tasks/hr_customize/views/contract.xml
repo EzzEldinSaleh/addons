@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="contract_id_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.inherti</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="/form/sheet/notebook/page[@name='information']" position="after">
+
+                        <page string="Allowances">
+                            <group>
+                                <field name="int_allow"/>
+                                <field name="abd_allow"/>
+                            </group>
+                        </page>
+
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

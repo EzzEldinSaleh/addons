@@ -1,0 +1,1 @@
+{    'name': 'Overheads Distribution',    'author': 'EzzEldin Saleh',    'depends': ['base','account','sale_management'],    'data': [        'views/account_move.xml',        'views/saleorder.xml',    ],}

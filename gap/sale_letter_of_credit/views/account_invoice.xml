@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+
+                    <button class="oe_stat_button"
+                            name="action_open_lc" string="Letter of Credit" type="object" icon="fa-list">
+                    </button>
+
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="Letter Of Credit" string="Letter Of Credit">
+                        <group>
+                            <group>
+                                <field name="documentary_credit_number" string="F20: Documentary Credit Number"/>
+                                <field name="place_of_expiry" string="F31D: Place Of Expiry"/>
+                                <field name="date_of_expiry" string="F31D: Date Of Expiry"/>
+                                <field name="issuing_bank" string="F52A: ISSUING BANK"/>
+                                <field name="corresponding_bank" />
+                                <field name="applicant" string="F50: Applicant"/>
+                                <field name="slc_beneficiary" string="F59: Beneficiary"/>
+                                <field name="currency_code" string="F32B: Currency Code"/>
+                                <field name="drafts_at" string="F42C: Drafts at"/>
+                                <field name="loading_departure" string="F44E: Port of Loading/Airport of Departure"/>
+                                <field name="discharge_destination" string="F44F: Port of Discharge/Airport of Destination"/>
+                                <field name="slc_description" string="F45A: Description of Goods and/or Services"/>
+<!--                                <field name="documents_required" string="F46A: Documents Required"/>-->
+                                <field name="additional_conditions" string="F47A: Additional Conditions"/>
+                                <field name="charges" string="F71D: Charges"/>
+                                <field name="advise_through_bank" string="F57A: Advise Through Bank"/>
+                                <field name="date_of_issue" string="F31C: Date of Issue"/>
+
+                                <field name="presentation_period" string="F48: Period for Presentation in Days"/>
+                                <field name="partial_shipments" string="F43P: Partial Shipments"/>
+                                <field name="transhipment" string="F43T: Transhipment"/>
+                                <field name="slc_amount" string="F32B: Amount"/>
+                                <field name="slc_currency_id" string="F32B: Currency Code"/>
+                                <field name="required_doc_ids" widget="many2many_tags" string="F46A: Documents Required"/>
+                                <field name="latest_date_of_shipment" string="F44C: Latest Date of Shipment"/>
+                                <field name="confirmation_instructions" string="F49: Confirmation Instructions"/>
+                            </group>
+                            <group>
+                                <field name="show_documentary_credit_number" />
+                                <field name="show_date_and_place_of_expiry" />
+                                <field name="show_issuing_bank" />
+                                <field name="show_corresponding_bank" />
+                                <field name="show_applicant" />
+                                <field name="show_beneficiary" />
+                                <field name="show_currency_code" />
+                                <field name="show_drafts_at" />
+                                <field name="show_loading_departure" />
+                                <field name="show_discharge_destination" />
+                                <field name="show_slc_description" />
+<!--                                <field name="show_documents_required" />-->
+                                <field name="show_additional_conditions" />
+                                <field name="show_charges" />
+                                <field name="show_advise_through_bank" />
+                                <field name="show_date_of_issue" />
+<!--                                <field name="show_date_of_expiry" />-->
+                                <field name="show_presentation_period" />
+                                <field name="show_partial_shipments" />
+                                <field name="show_transhipment" />
+                                <field name="show_slc_amount" />
+                                <field name="show_slc_currency_id" />
+                                <field name="show_required_doc_ids" />
+                                <field name="show_latest_date_of_shipment" />
+                                <field name="show_confirmation_instructions" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

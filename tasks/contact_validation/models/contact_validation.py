@@ -1,0 +1,1 @@
+from odoo import api, fields, modelsfrom odoo.exceptions import ValidationErrorclass ResPartnerInherit(models.Model):    _inherit = 'res.partner'    @api.onchange('name')    def name_validation(self):        partners=self.search([])        for partner in partners:            if partner.name == self.name:               raise ValidationError('This Name Already exist')

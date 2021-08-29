@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- Inherit Form View to Modify it -->
+       <record id="sale_order_discount" model="ir.ui.view">
+           <field name="name">sale.order.dis</field>
+           <field name="model">sale.order</field>
+           <field name="inherit_id" ref="sale.view_order_form"/>
+           <field name="arch" type="xml">
+
+               <xpath expr="//group[@name='note_group']/group[@name='sale_total']/field[@name='amount_untaxed']" position="after">
+                                    <field name="amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+               </xpath>
+               <xpath expr="//group[@name='note_group']/group/field[@name='note']" position="after">
+                   <field name="dis_type"/>
+                   <field name="amount_dis"/>
+
+               </xpath>
+
+           </field>
+       </record>
+
+
+    </data>
+</odoo>

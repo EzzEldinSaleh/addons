@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Reports -->
+    <!-- NAME & FILE_NAME should be the same -->
+    <report
+            id="report_sale_id_ez"
+            model="sale.wizard"
+            report_type="qweb-pdf"
+            string="Test"
+            name="report.ezz_report"
+            file="report.ezz_report"
+    />
+    <template id="ezz_report">
+        <t t-call="web.html_container">
+
+            <t t-call="web.external_layout">
+                <div class="page">
+
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th class="text-center">Products</th>
+                                <th class="text-right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data" t-as="d">
+                                <t t-set="products" t-value="data[d]['products']"/>
+                                <t t-set="product_ids" t-value="list(products.keys())"/>
+                                <tr>
+                                    <td t-att-rowspan="data[d]['num_products']">
+                                        <t t-esc="data[d]['name']"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="data[d]['products'][product_ids[0] ][0]"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="data[d]['products'][product_ids[0] ][1]"/>
+                                    </td>
+                                </tr>
+                                <tr t-foreach="product_ids[1:]" t-as="p">
+                                    <td class="text-center">
+                                        <span t-esc="data[d]['products'][ p ][0]"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="data[d]['products'][ p ][1]"/>
+                                    </td>
+                                </tr>
+
+                            </t>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+reportresupply,resupply_report_name,model_wizard_warehouse,,1,1,1,1

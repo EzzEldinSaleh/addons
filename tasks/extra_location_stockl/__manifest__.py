@@ -1,0 +1,1 @@
+{    'name': 'Extra Locations',    'author': 'Ezz Eldin',    'depends': ['base','stock'],    'data': [        'views/extra_location_window.xml',        'views/extra_location_picking.xml',        'views/extra_location_quant.xml',        'security/ir.model.access.csv',             ],}

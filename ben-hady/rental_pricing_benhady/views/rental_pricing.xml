@@ -1,0 +1,174 @@
+<data>
+    <record id="rental_pricing_form" model="ir.ui.view">
+        <field name="name">rental_pricing.form</field>
+        <field name="model">ben.rental.pricing</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Rental Pricing Name"/>
+                        <h1><field name="name" placeholder="Rental Pricing Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_id"/>
+                        </group>
+                        <group>
+                            <field name="warehouse_ids" widget="many2many_tags"/>
+                            <label for="km_free"/>
+                            <div class="o_row" name="km_free">
+                                <field name="km_free"/><span>km</span>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="pricing" string="Pricing">
+                            <!-- add  context="{'default_field' : field}" to set default value -->
+                            <group>
+                            <group>
+                                    <label for="hour"/>
+                                    <div class="o_row" name="hour">
+                                        <field name="hour"/>
+                                    </div>
+                                    <label for="day"/>
+                                    <div class="o_row" name="day">
+                                        <field name="day"/><span>Per Day</span>
+                                    </div>
+                                    <label for="week"/>
+                                    <div class="o_row" name="week">
+                                        <field name="week"/><span>Per Day</span>
+                                    </div>
+                                <label for="month"/>
+                                    <div class="o_row" name="month">
+                                        <field name="month"/><span>Per Day</span>
+                                    </div>
+                                </group>
+                                                                <group/>
+
+                            </group>
+                        </page>
+                        <page name="km" string="K.M">
+                            <group>
+                                <group>
+                                    <label for="km_extra_cost"/>
+                                    <div class="o_row" name="km_extra_cost">
+                                        <field name="km_extra_cost"/><span>Per Day</span>
+                                    </div>
+                                    <label for="km_open"/>
+                                    <div class="o_row" name="km_open">
+                                        <field name="km_open"/><span>Per Day</span>
+                                    </div>
+                                    <label for="fuel"/>
+                                    <div class="o_row" name="fuel">
+                                        <field name="fuel"/><span>Per Day</span>
+                                    </div>
+                                </group>
+                                <group/>
+                            </group>
+                        </page>
+                        <page name="additional_cost" string="Additional Costs">
+                            <group>
+                                <group>
+
+                                    <label for="normal_insurance"/>
+                                    <div class="o_row" name="normal_insurance">
+                                        <field name="normal_insurance"/><span>Once</span>
+                                    </div>
+
+                                    <label for="general_insurance"/>
+                                    <div class="o_row" name="general_insurance">
+                                        <field name="general_insurance"/><span>Per Day</span>
+                                    </div>
+
+                                    <label for="franchise_insurance"/>
+                                    <div class="o_row" name="franchise_insurance">
+                                        <field name="franchise_insurance"/><span>Per Day</span>
+                                    </div>
+
+                                    <label for="fine_separation_counter"/>
+                                    <div class="o_row" name="fine_separation_counter">
+                                        <field name="fine_separation_counter"/><span>Once</span>
+                                    </div>
+                                </group>
+                                <group/>
+                            </group>
+                        </page>
+                        <page name="late_in_return" string="Late In Return">
+                            <!-- add  context="{'default_field' : field}" to set default value -->
+                            <field name="late_return_ids">
+                                <tree editable="bottom">
+                                    <!-- add  domain="[('id','=',parent.field)]" to set default domain -->
+                                    <field name="condition"/>
+                                    <field name="uom_id"/>
+                                    <field name="late_from"/>
+                                    <field name="to"/>
+                                    <field name="amount"/>
+                                    <field name="rental_pricing_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="difference_return" string="Difference Time Return">
+                            <!-- add  context="{'default_field' : field}" to set default value -->
+                            <field name="difference_return_ids">
+                                <tree editable="bottom">
+                                    <!-- add  domain="[('id','=',parent.field)]" to set default domain -->
+                                    <field name="condition"/>
+                                    <field name="uom_id"/>
+                                    <field name="late_from"/>
+                                    <field name="to"/>
+                                    <field name="amount"/>
+                                    <field name="rental_pricing_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+
+            </form>
+        </field>
+    </record>
+    
+    <record id="rental_pricing_tree" model="ir.ui.view">
+        <field name="name">ben.rental.pricing.tree</field>
+        <field name="model">ben.rental.pricing</field>
+        <!--<field name="field_parent">children_ids if_want_to_add_Childs</field>-->
+        <field name="arch" type="xml">
+            <tree>
+                <field name="model_id"/>
+                <field name="warehouse_ids" widget="many2many_tags"/>
+                <field name="km_free"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="rental_pricing_search" model="ir.ui.view">
+        <field name="name">ben.rental.pricing.search</field>
+        <field name="model">ben.rental.pricing</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="model_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Model" name="group_model_id" context="{'group_by':'model_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="rental_pricing_action" model="ir.actions.act_window">
+        <field name="name">Rental Pricing</field>
+        <field name="res_model">ben.rental.pricing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem id="rental_pricing_menu" 
+              name="Rental Pricing" 
+              action="rental_pricing_action" 
+              parent="sale_renting.menu_rental_config"
+              sequence="10"/>
+</data>

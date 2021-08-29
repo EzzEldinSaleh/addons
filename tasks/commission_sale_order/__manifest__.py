@@ -1,0 +1,1 @@
+{    'name': 'Commission Sale Order',    'author': 'Ezz Eldin',    'depends': ['base','sale_management'],    'data': [        'views/wizard_commession.xml',        'views/commission.xml',        'security/ir.model.access.csv',             ],}

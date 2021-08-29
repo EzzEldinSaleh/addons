@@ -1,0 +1,1 @@
+{    'name': 'Contact Validation',    'author': 'Ezz eldin saleh',    'depends': ['base'],    'data': [],}

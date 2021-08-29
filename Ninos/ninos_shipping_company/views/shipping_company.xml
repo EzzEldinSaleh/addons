@@ -1,0 +1,38 @@
+<data>
+    <record id="shipping_company_form" model="ir.ui.view">
+        <field name="name">shipping.company.form</field>
+        <field name="model">shipping.company</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="shipping_company_tree" model="ir.ui.view">
+        <field name="name">shipping.company.tree</field>
+        <field name="model">shipping.company</field>
+        <!--<field name="field_parent">children_ids if_want_to_add_Childs</field>-->
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="shipping_company_action" model="ir.actions.act_window">
+        <field name="name">Shipping Company</field>
+        <field name="res_model">shipping.company</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="shipping_company_menu"
+              name="Shipping Company"
+              action="shipping_company_action"
+              parent="sale.menu_sales_config"
+              sequence="4"/>
+</data>

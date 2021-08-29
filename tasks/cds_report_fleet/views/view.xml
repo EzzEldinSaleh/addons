@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+    <data>
+        <template id="report_fleet_custom" inherit_id="stock.report_picking">
+            <xpath expr="//div[@name='div_sched_date']" position="after">
+                <div class="col-auto" name="div_car">
+                                    <strong>Car:</strong>
+                                    <p t-field="o.vehicle_id"/>
+                                </div>
+								 <div class="col-auto" name="div_driver">
+                                    <strong>Driver:</strong>
+                                    <p t-field="o.driver_id"/>
+                                </div>
+            </xpath>
+        </template>
+    </data>
+
+</odoo>

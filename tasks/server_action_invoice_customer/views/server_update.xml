@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+     <record id="model_invoice_action_share" model="ir.actions.server">
+            <field name="name">Change Customer</field>
+            <field name="model_id" ref="account_accountant.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code"> action = records.namejjv()</field>
+        </record>
+</data>
+</odoo>

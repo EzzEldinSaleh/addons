@@ -1,0 +1,122 @@
+<odoo>
+    <record id="sale_bl_view_form" model="ir.ui.view">
+        <field name="name">sale.bill.of.lading.view.form</field>
+        <field name="model">sale.bill.of.lading</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,original"/>
+                    </header>
+                    <group>
+
+                        <group>
+
+                            <field name="bl_seq"/>
+                            <field name="no_original_bl"/>
+                            <field name="order_id"/>
+                            <field name="shipper_id"/>
+                            <field name="consignee_id"/>
+                            <field name="first_notify_party_id"/>
+                            <field name="second_notify_party_id"/>
+                        </group>
+                        <group>
+                            <field name="carrier_name"/>
+                            <field name="bgk_number"/>
+                            <field name="movement_list"/>
+                            <field name="port_of_lading"/>
+                            <field name="port_of_discharge"/>
+                            <field name="vessel"/>
+                            <field name="voyage_no"/>
+                            <field name="place_of_delivery"/>
+                            <field name="place_of_receipt"/>
+                            <field name="freight"/>
+                            <field name="place"/>
+                            <field name="shipment"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="container_nos"/>
+                            <field name="seal_nos"/>
+                            <field name="nu_container"/>
+                            <field name="nu_package"/>
+                        </group>
+                        <group>
+                            <field name="measures"/>
+                            <field name="gross_weight"/>
+                            <field name="total_gross_weight"/>
+                            <field name="total_net_weight"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="bl_line_ids">
+                            <tree editable="top">
+                                <field name="seal_nos"/>
+                                <field name="nu_container"/>
+                                <field name="bags_no"/>
+                                <field name="gw"/>
+                                <field name="nw"/>
+                                <field name="container_size"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="freight_and_charges"/>
+                        <field name="remarks"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_bl_view_tree" model="ir.ui.view">
+        <field name="name">sale.bill.of.lading.view.tree</field>
+        <field name="model">sale.bill.of.lading</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="bl_seq"/>
+                <field name="no_original_bl"/>
+                <field name="order_id"/>
+                <field name="shipper_id"/>
+                <field name="consignee_id"/>
+                <field name="first_notify_party_id"/>
+                <field name="second_notify_party_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_sale_bl" model="ir.actions.act_window">
+        <field name="name">Bill Of Lading</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.bill.of.lading</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Add New Bill Of Lading
+            </p>
+        </field>
+    </record>
+
+    <record id="action_view_bl_of_lading" model="ir.actions.act_window">
+        <field name="name">Bill Of Lading</field>
+        <field name="res_model">sale.bill.of.lading</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('order_id', '=', active_id)]</field>
+        <field name="context">{'default_order_id': active_id}</field>
+    </record>
+
+    <menuitem id="menu_bill_of_lading_root"
+              name="Bill Of Lading"
+              parent="sale.sale_menu_root"
+    />
+    <menuitem id="menu_bill_of_lading" name="Bill Of Lading" parent="menu_bill_of_lading_root"
+              action="action_sale_bl"
+    />
+</odoo>

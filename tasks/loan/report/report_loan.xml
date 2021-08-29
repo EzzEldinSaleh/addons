@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="loan_report_id"
+            model="loan"
+            report_type="qweb-pdf"
+            string="Loan"
+            name="loan.loan_template_id_report"
+            file="loan.loan_template_id_report"
+        />
+<template id="loan_template_id_report">
+    <t t-call="web.html_container">
+        <t t-call="web.internal_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                <div class="oe_structure"/>
+
+            <h2 class="text-center" style="color:blue">
+                <span t-field="o.name"/>
+            </h2>
+<div class="row">
+                                <div class="col-6" name="div_outgoing_address">
+                                    <div>
+                                        <span style="color:red"><strong>Partner:</strong></span>
+                                        <div t-field="o.partner_id"/>
+                                    </div>
+                                    <div>
+                                        <span><strong style="color:red">First Loan:</strong></span>
+                                        <div t-field="o.date"/>
+                                    </div>
+                                </div>
+                                <div class="col-5 offset-1" name="div_amount">
+                                    <div>
+                                        <span><strong style="color:red">Amount:</strong></span>
+                                        <div t-field="o.total"/>
+                                    </div>
+                                    <div>
+                                        <span><strong style="color:red">Number of loans:</strong></span>
+                                        <div t-field="o.num_of_loan"/>
+                                    </div>
+
+                                </div>
+</div>
+                    <br/>
+                    <table style="border:3px solid black" class="table table-bordered table-sm">
+
+<thead style="display: table-row-group">
+
+    <tr>
+         <th name="th_date" class="text-left">Date</th>
+                        <th name="th_num" class="text-right">Number</th>
+                        <th name="th_payment" class="text-right">Payment</th>
+                        <th name="th_amount"  class="text-right" >Amount</th>
+    </tr>
+</thead>
+<tbody>
+    <tr t-foreach="o.loans_ids" t-as="line">
+        <td class="text-left">
+                                        <span t-field="line.date"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.number"/>
+                                    </td>
+        <td class="text-right">
+                                        <span t-field="line.payment_id"/>
+                                    </td>
+        <td class="text-right">
+                                        <span t-field="line.amount"/>
+                                    </td>
+
+    </tr>
+
+</tbody>
+                    </table>
+            </div>
+        </t>
+        </t>
+    </t>
+</template>
+
+
+
+
+    </data>
+</odoo>

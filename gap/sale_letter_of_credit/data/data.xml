@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sale_letter_credit_code" model="ir.sequence">
+            <field name="name">Sale letter credit Sequence/</field>
+            <field name="code">sale.letter.credit</field>
+            <field name="prefix">SLC/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="comm_invoice" model="sale.letter.doc">
+            <field name="name">COMMERCIAL INVOICE</field>
+        </record>
+
+        <record id="packing_list" model="sale.letter.doc">
+            <field name="name">DETAILED PACKING LIST</field>
+        </record>
+
+        <record id="bill_lading" model="sale.letter.doc">
+            <field name="name">BILL OF LADING</field>
+        </record>
+
+        <record id="certificate_origin" model="sale.letter.doc">
+            <field name="name">CERTIFICATE OF ORIGIN</field>
+        </record>
+
+        <record id="bill_exchange" model="sale.letter.doc">
+            <field name="name">BILL OF EXCHANGE</field>
+        </record>
+
+        <record id="beneficiary_cert" model="sale.letter.doc">
+            <field name="name">BENEFICIARY'S CERTIFICATE</field>
+        </record>
+
+        <record id="vessel_cert" model="sale.letter.doc">
+            <field name="name">VESSEL CERTIFICATE</field>
+        </record>
+
+        <record id="other_doc" model="sale.letter.doc">
+            <field name="name">OTHER DOCUMENTS</field>
+        </record>
+
+    </data>
+</odoo>

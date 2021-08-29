@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!-- Inherit Form View to Modify it -->
+<record id="res_partner_add_fields" model="ir.ui.view">
+    <field name="name">Partner</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='category_id']" position="after">
+            <field name="commercial"/>
+            <field name="fax"/>
+            <field name="port_discharge"/>
+        </xpath>
+
+    </field>
+</record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_partner_property_form_add_field" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='bank_ids']" position="replace">
+                    <field name="bank_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="bank_id"/>
+                            <field name="acc_number"/>
+                            <field name="swift_code"/>
+                            <field name="acc_holder_name" invisible="1"/>
+                        </tree>
+                    </field>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

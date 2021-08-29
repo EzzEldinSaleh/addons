@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- Inherit Form View to Modify it -->
+       <record id="model_name_inherit_button" model="ir.ui.view">
+           <field name="name">sale.order.inherit</field>
+           <field name="model">sale.order</field>
+           <field name="inherit_id" ref="sale.view_order_form"/>
+           <field name="arch" type="xml">
+
+               <button name="action_confirm" position="after">
+                   <button name="button_name" type="object" string="test"/>
+               </button>
+
+           </field>
+       </record>
+
+
+    </data>
+</odoo>

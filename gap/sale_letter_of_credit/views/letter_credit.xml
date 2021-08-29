@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_letter_credit_form" model="ir.ui.view">
+            <field name="name">sale.letter.credit.form</field>
+            <field name="model">sale.letter.credit</field>
+            <field name="arch" type="xml">
+                <form string="MODEL" create="true" duplicate="true" edit="true" delete="true">
+                    <header>
+                        <button name="action_ack" string="Acknowledge" class="oe_highlight" states="draft"
+                                type="object"/>
+                        <button name="action_confirm" string="Confirm" class="oe_highlight" states="acknowledged"
+                                type="object"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <!--                            <label string="Letter Of Credit"/>-->
+                            <h1>
+                                <field name="documentary_credit_number" attrs="{'required':[('state','=','acknowledged')]}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"
+                                       context="{'search_default_customer':1, 'default_customer':1, 'default_supplier':0}"
+                                       domain="[('customer','=',True)]"/>
+<!--                                <field name="amount" widget="monetary"/>-->
+<!--                                <field name="currency_id"/>-->
+<!--                                <field name="currency_rate"/>-->
+                                <!--                                <field name="type_of_lc"/>-->
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <!--                                <field name="expiration_date"/>-->
+                                <field name="sale_id" required="True" domain="[('need_lc','=',True)]"/>
+                                <field name="invoice_ids" invisible="True"/>
+                                <field name="invoice_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Other Info">
+                                <group>
+                                    <group>
+<!--                                        <field name="user_id"/>-->
+                                        <field name="beneficiary_bank_id"
+                                               context="{'form_view_ref': 'account_beneficiary_bank.view_account_journal_form_inherit', 'default_type': 'bank', 'type': 'bank'}"/>
+<!--                                        <field name="documentary_credit_number"-->
+<!--                                               string="F20: Documentary Credit Number"-->
+<!--                                               attrs="{'required':[('state','=','acknowledged')]}"/>-->
+                                        <field name="date_of_expiry" string="F31D: Date Of Expiry" attrs="{'required':[('state','=','acknowledged')]}"/>
+                                        <field name="place_of_expiry" string="F31D: Place Of Expiry" attrs="{'required':[('state','=','acknowledged')]}"/>
+                                        <field name="issuing_bank" string="F52A: ISSUING BANK" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="corresponding_bank" attrs="{'required':[('state','=','acknowledged')]}"/>
+                                        <field name="applicant" string="F50: Applicant" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="beneficiary" string="F59: Beneficiary" attrs="{'required':[('state','=','draft')]}"/>
+<!--                                        <field name="currency_code" string="F32B: Currency Code" attrs="{'required':[('state','=','draft')]}"/>-->
+                                        <field name="drafts_at" string="F42C: Drafts at" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="loading_departure" string="F44E: Port of Loading/Airport of Departure" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="discharge_destination" string="F44F: Port of Discharge/Airport of Destination" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="description" string="F45A: Description of Goods and/or Services" attrs="{'required':[('state','=','draft')]}"/>
+<!--                                        <field name="documents_required" string="F46A: Documents Required" attrs="{'required':[('state','=','draft')]}"/>-->
+                                        <field name="additional_conditions" string="F47A: Additional Conditions" attrs="{'required':[('state','=','draft')]}"/>
+                                    </group>
+                                    <group>
+<!--                                        <field name="customs_clearance_number"/>-->
+                                        <field name="delivery_date"/>
+                                        <field name="incoterm_id"/>
+                                        <field name="charges" string="F71D: Charges" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="advise_through_bank" string="F57A: Advise Through Bank" attrs="{'required':[('state','=','acknowledged')]}"/>
+                                        <field name="date_of_issue" string="F31C: Date of Issue" attrs="{'required':[('state','=','acknowledged')]}"/>
+                                        <field name="presentation_period" string="F48: Period for Presentation in Days" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="partial_shipments" string="F43P: Partial Shipments" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="transhipment" string="F43T: Transhipment" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="amount" string="F32B: Amount" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="currency_id" string="F32B: Currency Code" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="required_doc_ids" widget="many2many_tags" string="F46A: Documents Required" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="latest_date_of_shipment"  string="F44C: Latest Date of Shipment" attrs="{'required':[('state','=','draft')]}"/>
+                                        <field name="confirmation_instructions" string="F49: Confirmation Instructions" attrs="{'required':[('state','=','draft')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Documents">
+                                <field name="document_ids">
+                                    <tree editable="bottom">
+                                        <field name="name" invisible="True"/>
+                                        <field name="document" widget="FieldBinary" filename="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_letter_credit_tree" model="ir.ui.view">
+            <field name="name">sale.letter.credit.tree</field>
+            <field name="model">sale.letter.credit</field>
+            <field name="arch" type="xml">
+                <tree create="true" duplicate="true" edit="true" delete="true">
+                    <field name="documentary_credit_number"/>
+                    <field name="partner_id"/>
+                    <field name="beneficiary_bank_id"/>
+                    <field name="type_of_lc"/>
+                    <field name="date"/>
+                    <field name="country_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_letter_credit_action" model="ir.actions.act_window">
+            <field name="name">Letter Of Credit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.letter.credit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menuitem_letter_credit_root" name="Letter Of Credit" parent="sale.sale_menu_root"
+                  sequence="5"/>
+
+        <menuitem id="menuitem_letter_credit" name="Letter Of Credit" parent="menuitem_letter_credit_root"
+                  action="view_letter_credit_action" sequence="1"/>
+
+
+    </data>
+</odoo>

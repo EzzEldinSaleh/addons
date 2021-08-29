@@ -1,0 +1,79 @@
+<data>
+    <record id="product_category_rental_additional_cost" model="product.category">
+        <field name="name">Rental Additional Cost</field>
+    </record>
+
+
+    <record id="km_open" model="product.product">
+        <field name="name">K.M Open</field>
+        <field name="list_price">0</field>
+        <field name="standard_price">0</field>
+        <field name="type">service</field>
+        <field name="uom_id" ref="uom.product_uom_day"/>
+        <field name="uom_po_id" ref="uom.product_uom_day"/>
+        <field name="categ_id" ref="product_category_rental_additional_cost"/>
+    </record>
+
+    <record id="km_extra_cost" model="product.product">
+        <field name="name">K.M Extra Cost</field>
+        <field name="list_price">0</field>
+        <field name="standard_price">0</field>
+        <field name="type">service</field>
+        <field name="uom_id" ref="uom.product_uom_day"/>
+        <field name="uom_po_id" ref="uom.product_uom_day"/>
+        <field name="categ_id" ref="product_category_rental_additional_cost"/>
+    </record>
+
+    <record id="km_fuel" model="product.product">
+        <field name="name">Fuel</field>
+        <field name="list_price">0</field>
+        <field name="standard_price">0</field>
+        <field name="type">service</field>
+        <field name="uom_id" ref="uom.product_uom_day"/>
+        <field name="uom_po_id" ref="uom.product_uom_day"/>
+        <field name="categ_id" ref="product_category_rental_additional_cost"/>
+    </record>
+
+    <record id="km_franchise_insurance" model="product.product">
+        <field name="name">Franchise Insurance</field>
+        <field name="list_price">0</field>
+        <field name="standard_price">0</field>
+        <field name="type">service</field>
+        <field name="uom_id" ref="uom.product_uom_day"/>
+        <field name="uom_po_id" ref="uom.product_uom_day"/>
+        <field name="categ_id" ref="product_category_rental_additional_cost"/>
+    </record>
+
+    <record id="km_general_insurance" model="product.product">
+        <field name="name">General Insurance</field>
+        <field name="list_price">0</field>
+        <field name="standard_price">0</field>
+        <field name="type">service</field>
+        <field name="uom_id" ref="uom.product_uom_day"/>
+        <field name="uom_po_id" ref="uom.product_uom_day"/>
+        <field name="categ_id" ref="product_category_rental_additional_cost"/>
+    </record>
+
+    <record id="km_normal_insurance" model="product.product">
+        <field name="name">Normal Insurance</field>
+        <field name="list_price">0</field>
+        <field name="is_once">True</field>
+        <field name="standard_price">0</field>
+        <field name="type">service</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="categ_id" ref="product_category_rental_additional_cost"/>
+    </record>
+
+    <record id="km_fine_separation_counter" model="product.product">
+        <field name="name">Fine Separation Counter</field>
+        <field name="is_once">True</field>
+        <field name="list_price">0</field>
+        <field name="standard_price">0</field>
+        <field name="type">service</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="categ_id" ref="product_category_rental_additional_cost"/>
+    </record>
+
+</data>

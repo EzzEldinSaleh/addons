@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_bill_of_lading,access.sale.bill.of.lading,model_sale_bill_of_lading,sales_team.group_sale_salesman,1,1,1,1
+access_sale_bill_of_lading_line,access.sale.bill.of.lading.line,model_sale_bill_of_lading_line,sales_team.group_sale_salesman,1,1,1,1

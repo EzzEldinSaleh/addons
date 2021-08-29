@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- Inherit Form View to Modify it -->
+       <record id="account_move_discount" model="ir.ui.view">
+           <field name="name">account.move.dis</field>
+           <field name="model">account.move</field>
+           <field name="inherit_id" ref="account.view_move_form"/>
+           <field name="arch" type="xml">
+
+               <xpath expr="//field[@name='amount_untaxed']" position="after">
+<field name="amount" attrs="{'invisible': [('amount_tax', '=', 0)]}"/>
+               </xpath>
+               <xpath expr="//field[@name='narration']" position="after">
+                   <group>
+                        <field name="dis_type" class="oe_inline" attrs="{'invisible': [('amount_tax', '=', 0)]}"/>
+                   <field name="amount_dis" class="oe_inline" attrs="{'invisible': [('amount_tax', '=', 0)]}"/>
+                   </group>
+
+               </xpath>
+
+           </field>
+       </record>
+
+
+    </data>
+</odoo>

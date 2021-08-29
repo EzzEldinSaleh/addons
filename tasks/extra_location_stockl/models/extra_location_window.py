@@ -1,0 +1,1 @@
+from odoo import api, fields, modelsclass extralocation(models.Model):    _name = 'extra.location'    name = fields.Char('Name')

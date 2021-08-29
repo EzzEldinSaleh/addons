@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Reports -->
+    <!-- NAME & FILE_NAME should be the same -->
+      <report
+        id="report_patient_card_xlx"
+        string="Patient Card Excel"
+        model="res.partner"
+        report_type="xlsx"
+        name="report.report_patient_card_xlx"
+        file="report.report_patient_card_xlx"/>
+
+</odoo>

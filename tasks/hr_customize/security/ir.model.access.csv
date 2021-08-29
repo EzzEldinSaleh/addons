@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+award,awardname,model_hr_award,,1,1,1,1
+pen,penname,model_hr_penalty,,1,1,1,1
+tyr,trr,model_hr_travel,,1,1,1,1
+
+
+

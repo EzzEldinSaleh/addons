@@ -1,0 +1,1 @@
+{    'name': 'Report Mfc',    'author': 'EzzEldin Saleh',    'depends': ['base','mrp','report_xlsx'],    'data': [        'wizard/wizard_mfc.xml',        'security/ir.model.access.csv',        ],}

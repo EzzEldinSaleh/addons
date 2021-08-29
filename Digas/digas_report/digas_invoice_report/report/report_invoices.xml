@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+              <report
+                   id="report_digas_id"
+                   model="account.move"
+                   report_type="qweb-pdf"
+                   string="Digas Invoices"
+                   name="digas_invoice_report.digas_template_report_id"
+                   file="digas_invoice_report.digas_template_report_id"
+               />
+    <template id="digas_template_report_id">
+        <t t-call="web.html_container">
+<!--            <t t-call="web.internal_layout">-->
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="company" t-value="doc.company_id.sudo()"/>
+
+                             <t t-call="web.external_layout">
+                <div class="page">
+<!--                     <div style="text-align:center;" >-->
+
+<!--                           <div style=" display: inline-block;-->
+
+<!--  padding-right: 240px;-->
+<!--margin:auto;-->
+<!--  border: 2px solid black;-->
+<!--  background-color: lightblue; " class="a"><strong><span t-field="doc.payment_reference"/></strong></div>-->
+<!--     Invoice No.-->
+<!--                          <div style=" display: inline-block;-->
+<!--  padding-left: 80px;-->
+<!--  border: 2px solid black;-->
+<!--  text-align:center;-->
+<!--  background-color: lightblue; " class="a"><strong style="text-align: center;"><span t-field="doc.payment_reference"/></strong></div><span style="margin:20px;display: inline-block;">:فاتوره رقم</span>-->
+
+<!--</div>-->
+ <span style="
+  text-align: center;
+                      font-size:15px;
+
+    margin-left:35%
+"><strong>Sales Invoice</strong></span> <span style="
+  text-align: center;
+                      font-size:15px;
+
+  margin-left:30px"><strong>فاتورة مبيعات</strong></span>
+
+
+
+                    <table style="font-size: 14px;width: 100%; margin-left: auto;
+  margin-right: auto;">
+                    <tr height="30">
+
+<!--                        <td style="width: 30%; background-color: lightblue;border: 2px solid black;" align="center">-->
+<!--                            <span t-field="doc.payment_reference"/>-->
+<!--                        </td>-->
+                        <td style="width: 8%;" align="center">
+                            Invoice NO.
+                        </td>
+                        <td style="width: 30%; background-color: lightblue;border: 2px solid black;" align="center"> <span t-field="doc.payment_reference"/>
+
+
+
+                        </td>
+                        <td style="width: 10%;" align="right">فاتورة رقم
+
+                        </td>
+                    </tr>
+</table>
+<table style="font-size: 14px;width: 100%; margin-left: auto;
+  margin-right: auto;">
+                    <tr height="30">
+                        <td style="width: 8%;" align="center">
+                            Vat No.
+                        </td>
+                        <td style="width: %30;border: 2px solid black;" align="center">
+                            <span t-field="company.vat"/>
+                        </td>
+  <td style="width: 20%;" align="right">
+                            رقم ضريبة القيمة المضافة
+                        </td>
+                    </tr>
+</table>
+<!--                      <div style="text-align:center;">-->
+<!-- <span style=" margin-right:30px-->
+<!--;display: inline-block;">Vat No.</span><span style="-->
+<!--  padding-left: 469px;-->
+<!--  border: 2px solid black;-->
+<!--  text-align:center;"><strong>000000123</strong></span><span style="margin:20px-->
+<!--">رقم ضريبة القيمة المضافة</span></div>-->
+
+                 <div style="text-align:center;
+">
+                       <div style=" display:inline-block;
+  width:30%;
+  font-size:10px;
+                            margin:auto;
+margin:10px;
+   padding:5px;
+  border: 2px solid black;
+  " class="a"><strong><span t-field="doc.ref"/></strong></div>
+                     <strong style="  font-size:10px;
+">P.O No.</strong>
+                          <span  style="
+                          display:inline-block;
+                            font-size:10px;
+
+   width:24%;
+   padding:5px;
+  border: 2px solid black;
+ " class="a"><strong style="text-align: center;"><span t-field="doc.invoice_date"/></strong></span><span style="margin:50px">Date</span>
+                </div>
+
+                            <table style="font-size: 14px;width: 100%">
+                    <tr height="30">
+                        <td style="width: 60%; background-color: lightblue;border: 2px solid black;" align="left"><strong style="color: red;">
+                            Client</strong>Name: <span t-field="doc.partner_id.name" />
+
+
+
+                        </td>
+                        <td style="width: 20%;" align="right">
+<!--                            <p t-field="doc.filed" />-->
+                        </td>
+                        <td style="width: 20%;" align="right">اسم<strong style="color: red;">
+                           العميل </strong>
+
+                        </td>
+                    </tr>
+                    <tr height="30">
+                        <td style="width: 60%;border: 2px solid black;" align="left"><strong style="color: red;">
+                            Client</strong> Address:
+
+                            <span t-field="doc.partner_id.street"/>,<span t-field="doc.partner_id.street2"/>,<span t-field="doc.partner_id.city"/>,<span t-field="doc.partner_id.state_id.name" />,<span t-field="doc.partner_id.country_id.name" />
+                        </td>
+                         <td style="width: 10%;" align="right">
+
+<!--                            <p t-field="doc.filed" />-->
+                        </td>
+                           <td style="width: 20%;" align="right">عنوان<strong style="color: red;">
+                           العميل </strong>
+
+<!--                            <p t-field="doc.filed" />-->
+                        </td>
+                    </tr>
+                    <tr height="30">
+                        <td style="width: 60%;border: 2px solid black;" align="left"><strong style="color: red;">
+                            Client                        </strong>
+ Vat No.: <span t-field="doc.partner_id.vat" />
+
+                        </td>
+                         <td style="width: 20%;" align="right">
+
+<!--                            <p t-field="doc.filed" />-->
+                        </td>
+                           <td style="width: 20%;" align="right">رقم القيمة المضافة <strong style="color: red;">للعميل </strong>
+
+<!--                            <p t-field="doc.filed" />-->
+                        </td>
+                    </tr>
+
+                </table>
+<table>
+     <tr height="30">
+                        <td style="width: 30%;border: 2px solid black;" align="left"><strong>
+Value
+                        </strong>
+                        </td>
+                        <td style="width: 20%;border: 2px solid black;" align="left"><strong style="color: red;">
+                            Client  </strong>
+account No.
+
+
+                        </td>
+                        <td style="width:20%;border: 2px solid black;" align="left"><strong>
+                            value
+                        </strong>
+
+ <td style="width: 20%;" align="right">فترة الائتمان/credit period
+
+<!--                            <p t-field="doc.filed" />-->
+                        </td>
+                        </td>
+                    </tr>
+</table>
+
+                <table style="margin-top:10px" class="table table-sm o_main_table">
+                        <thead><tr>
+                            <th style="font-size: 10px;background-color: lightblue; border: 2px solid red;" class="text-center">اجمالي القيمة</th>
+                            <th style="font-size: 10px;background-color: lightblue; border: 2px solid red;" class="text-center">الضريبة</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">الصافي</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">الخصم</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">سعر الوحده</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">الكمية</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">الوحده</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">بيان الاصناف</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">كود الاصناف</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">م.</th>
+                        </tr>
+                            <tr>
+                                <th style="font-size: 10px;background-color: lightblue; border: 2px solid red;" class="text-center">Total Value</th>
+                            <th style="font-size: 10px;background-color: lightblue; border: 2px solid red;" class="text-center">15% vat.</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">Net before vat</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">Discount</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">Unit Price</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">Qty.</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">Unit</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">Items Descriptions</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">Items Code</th>
+                            <th class="text-center" style="font-size: 10px;background-color: lightblue; border: 2px solid red;">Ser.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="index" t-value="0"/>
+                            <t t-set="sub" t-value="0"/>
+                            <t t-set="net" t-value="0"/>
+                            <t t-set="price_tax" t-value="0"/>
+                            <t t-set="discount" t-value="0"/>
+ <t t-foreach="doc.invoice_line_ids" t-as="line">
+
+
+                            <t t-set="index" t-value="index + 1"/>
+                            <t t-set="sub" t-value="sub+line.price_unit*line.quantity"/>
+                            <t t-set="price_tax" t-value="line.price_total-line.price_subtotal"/>
+                            <t t-set="discount" t-value="sub-doc.amount_untaxed"/>
+     <tr>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-field="line.price_total"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-esc="price_tax"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-field="line.price_subtotal"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-field="line.discount"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-field="line.price_unit"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-field="line.quantity"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-field="line.product_uom_id"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-field="line.name"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-field="line.product_id.default_code"/></td>
+         <td  class="text-center" style="font-size: 10px;border: 2px solid red;"><span t-esc="index"/></td>
+
+
+
+
+    </tr>
+                            </t>
+<tr>
+<td style="border: 2px solid red;width:13%"><span t-esc="sub"/></td>
+<td colspan="2" style="width:30%;font-size: 10px">Subtotal/الاجمالي</td>
+<td colspan="5" align="center" style="border: 2px solid black"><span t-field="doc.picking"/></td>
+<td colspan="2" rowspan="2" style="font-size: 12px;border: 2px solid black;;background-color:lightblue" align="center">ارقام سندات الاستلام/Delivery note No.</td>
+</tr>
+<tr>
+<td style="border: 2px solid red;width:13%"><span t-esc="discount"/></td>
+<td colspan="2" style="width:30%;font-size: 10px;">Discount/الخصم</td>
+<!--<td colspan="5" style="border: 2px solid black" align="center">Value</td>-->
+
+
+</tr>
+<tr>
+<td style="border: 2px solid red;width:13%"><span t-field="doc.amount_untaxed"/></td>
+    <td colspan="3" style="width:30%;font-size: 10px">Net Before Vat/الصافي قبل الضريبة</td>
+    <td colspan="3"></td>
+    <td colspan="2" style="font-size: 12px;border: 2px solid black" rowspan="1">Value</td>
+    <td rowspan="1" style="font-size: 12px;border: 2px solid black;background-color:lightblue" align="center">فترة التوريد/Delivery Period</td>
+
+</tr>
+<tr>
+<td style="border: 2px solid red;width:13%"><span t-field="doc.amount_tax"/></td>
+    <td colspan="3" style="width:30%;font-size: 10px">Vat 15%/ضريبة القيمة المضافة %15</td>
+
+
+</tr>
+<tr>
+<td style="border: 2px solid red;width:13%"><span t-field="doc.amount_total"/></td>
+
+    <td colspan="5" style="width:30%;background-color: green;font-size: 9px">Net Amount Due Sar/صافي المبلغ المستحق بالريال السعودي</td>
+<!--    <td style="width:30%;background-color: green;">صافي المبلغ المستحق بالريال السعودي</td>-->
+
+
+</tr>
+
+
+                        </tbody>
+                    </table>
+
+<table style="width: 100%;">
+    <tr>
+        <td style="width:85%;background-color:grey" align="center"><span t-field="doc.amount_total"/></td>
+        <td style="width:13%;" align="right">المبلغ بالارقام</td>
+    </tr>
+</table>
+                    <table style="width: 100%;margin-top:10px">
+    <tr>
+        <td style="width:20%;" align="left">Amount in word: Only</td>
+        <td style="width:80%;background-color:grey;font-size:11px" align="center"><span t-field="doc.num_word"/></td>
+
+    </tr>
+</table>
+ <p style="display:inline-block">Remarks:</p><p style="display:inline-block;margin-left:83%">:ملاحظات</p>
+                    <span t-field="doc.narration"/>
+<hr style="    background-color:black;
+"/>
+<div class="row">
+  <div class="col-3">
+<table style="width:100%;background-color:#6be30c">
+  <tr>
+    <td style="border: 1px solid #5db418;font-size: 10px;" align="center"><strong>التوقيع</strong></td>
+    <td style="border: 1px solid #5db418;font-size: 10px;" align="center"><strong>مسئول البيع</strong></td>
+  </tr>
+    <tr>
+    <td style="border: 1px solid #5db418;font-size: 10px;" align="center"><strong>Signature</strong></td>
+    <td style="border: 1px solid #5db418;font-size: 10px;" align="center"><strong>Salesman</strong></td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #5db418;font-size: 10px;" align="center"></td>
+    <td style="border: 1px solid #5db418;font-size: 10px;" align="center"><span t-field="doc.invoice_user_id.name"/></td>
+
+  </tr>
+
+</table>
+</div>
+
+<div class="col-9">
+<table style="width:100%">
+    <tr>
+        <td style="width:20%;" align="left">Received By:</td>
+        <td style="width:40%;" >___________________________________________________________________</td>
+        <td style="width:10%;" align="right">المستلم</td>
+    </tr>
+    <tr>
+        <td style="width:20%;" align="left">Signature:</td>
+        <td style="width:40%;" >___________________________________________________________________</td>
+        <td style="width:10%;" align="right">توقيع</td>
+    </tr>
+</table>
+<!--    <div style="display:inline-block;width:400px;-->
+<!--	text-align:left;">-->
+<!--   Signature:<hr style="-->
+<!--    float:right;-->
+<!--    background-color:black;-->
+<!--	width:70%;"/></div>توقيع-->
+<!--    <div style="margin-top:14px;display:inline-block;width:400px;-->
+<!--	text-align:left;">-->
+<!--   Received By:<hr style="-->
+<!--    float:right;-->
+<!--    background-color:black;-->
+<!--	width:70%;"/></div>       المستلم-->
+<!--&lt;!&ndash;    <div style="margin-top:10px;display:inline-block;width:500px;&ndash;&gt;-->
+<!--	text-align:left;">-->
+<!--   Received by:<hr style="-->
+<!--    float:right;-->
+<!--        background-color:black;-->
+<!--                               -->
+<!--	width:70%;"/></div>المستلم-->
+  </div>
+
+</div>
+
+<div style="margin-top:5px;text-align:right;background-color:grey;font-size:10px">
+                    استلمنا الماد الموضحة اعلاه من مصنع عبدالله عبدالعزيز الدخيل للغازات الصناعية بحالة جيده و حسب الموصفات
+</div>
+                    <div style="text-align:left;background-color:grey;font-size:10px;width:70%">
+We Received the Above Items From A.A.Aldakheel industrial Gases Plant (<strong style="color:red">Di GAS</strong>) in good condition and standard Specification
+                    </div>
+<h6 style="text-align:center">لتاكيد الفاتورة ختم المصنع هذا</h6>
+<div class="row">
+                                <div class="col-6" style="  font-size:10px;
+" name="kmfda">
+                                    <div>
+                                        <span><strong>Original:</strong></span>
+                                        <strong>Client</strong>
+                                    </div>
+                                    <div>
+                                        <span><strong>Blue Copy:</strong></span>
+<strong>Sales</strong>
+                                    </div>
+                                    <div>
+                                        <span><strong>Red Copy:</strong></span>
+                                        <strong>Finance</strong>
+                                    </div>
+                                    <div>
+                                        <span><strong>Green Copy:</strong></span>
+                                        <strong>Branch</strong>
+                                    </div>
+
+                                </div>
+                                <div style="text-align:right;  font-size:10px;
+" class="col-6" name="lkdmv">
+                                    <div>
+                                        <span>الاصل:</span>
+العميل
+                                    </div>
+                                    <div>
+                                        <span>النسخه الزرقاء:</span>
+المبيعات
+                                    </div>
+ <div>
+                                        <span>النسخه الحمراء:</span>
+المالية
+                                    </div>
+                                    <div>
+                                        <span>النسخه الخضراء:</span>
+الفرع
+                                    </div>
+                                </div>
+</div>
+                    <h6 style="text-align:center">For Confirm invoice DIGAS Here</h6>
+
+                </div>
+
+            </t>
+            </t>
+        </t>
+    </template>
+
+
+    </data>
+</odoo>

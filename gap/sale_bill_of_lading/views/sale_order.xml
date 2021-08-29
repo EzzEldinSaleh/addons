@@ -1,0 +1,22 @@
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!--<field name="payment_term_id" position="after">-->
+                <!--<field name="bill_of_lading" />-->
+            <!--</field>-->
+            <xpath expr="//button[@name='action_view_invoice']" position="after">
+                <field name="bill_of_lading_ids" invisible="1"/>
+                <button type="action"
+                        name="%(sale_bill_of_lading.action_view_bl_of_lading)d"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        groups="base.group_user">
+                    <field name="bl_count" widget="statinfo" string="Bills Of Lading"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

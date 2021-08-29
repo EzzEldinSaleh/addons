@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="pen_form_id" model="ir.ui.view">
+           <field name="name">pen.hr</field>
+           <field name="model">hr.penalty</field>
+           <field name="arch" type="xml">
+               <form string="Penalty">
+                     <header>
+                   <button name="button_con" type="object" states='draft' string="Confirm"/>
+                   <button name="button_don" type="object" states='confirm' string="Done"/>
+                   <button name="button_set_draftt" type="object" states='done' string="Set Draft"/>
+                   <field name="state" widget="statusbar"/>
+                     </header>
+                   <sheet>
+                       <group>
+                           <field name="name"/>
+                           <field name="date"/>
+                           <field name="amount"/>
+                       </group>
+                       <notebook>
+                           <page string="Notes">
+                               <group>
+                                   <field name="note"/>
+                               </group>
+                           </page>
+                       </notebook>
+                   </sheet>
+               </form>
+           </field>
+       </record>
+
+    <record id="pen_tree_id" model="ir.ui.view">
+        <field name="name">hr.pen.tree</field>
+        <field name="model">hr.penalty</field>
+        <field name="arch" type="xml">
+            <tree string="Penalty">
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+        <record id="pen_action_id" model="ir.actions.act_window">
+            <field name="name">Penalty</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.penalty</field>
+            <field name="view_mode">tree,form</field>
+
+        </record>
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hr_pen_action_menu" name="Penalty" parent="hr_award" action="pen_action_id" sequence="1"/>
+    </data>
+</odoo>

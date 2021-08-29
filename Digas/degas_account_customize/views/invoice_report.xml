@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@name='origin']"  position="after">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_origin" name="picking">
+                    <strong>Picking:</strong>
+                    <p class="m-0" t-field="o.picking"/>
+                </div>
+            </xpath>
+        </template>
+
+
+    </data>
+</odoo>

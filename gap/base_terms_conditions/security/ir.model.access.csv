@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_base_terms_conditions,access.base.terms.conditions,model_base_terms_and_conditions,,1,1,1,1

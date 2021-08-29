@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="structure_itss" model="hr.payroll.structure">
+        <field name="name">Structure r</field>
+             <field name="type_id">1</field>
+
+    </record>
+ <record id="structure_rule" model="hr.salary.rule">
+            <field name="name">penalty</field>
+                <field name="category_id" ref="hr_payroll.DED"/>
+
+        <field name="code">penalty</field>
+            <field name="struct_id" ref="hr_customize.structure_itss"/>
+            <field name="sequence" eval="10"/>
+    <field name="condition_select">none</field>
+    <field name="amount_select">code</field>
+    <field name="amount_python_compute">result = payslip.amount_pen</field>
+
+        </record>
+        <record id="structure_travel" model="hr.salary.rule">
+            <field name="name">travel</field>
+                <field name="category_id" ref="hr_payroll.ALW"/>
+
+        <field name="code">travel</field>
+            <field name="struct_id" ref="hr_customize.structure_itss"/>
+            <field name="sequence" eval="10"/>
+    <field name="condition_select">none</field>
+    <field name="amount_select">code</field>
+    <field name="amount_python_compute">result = payslip.amount_tra</field>
+
+        </record>
+        <record id="structure_award" model="hr.salary.rule">
+            <field name="name">award</field>
+                <field name="category_id" ref="hr_payroll.ALW"/>
+
+        <field name="code">award</field>
+            <field name="struct_id" ref="hr_customize.structure_itss"/>
+            <field name="sequence" eval="10"/>
+    <field name="condition_select">none</field>
+    <field name="amount_select">code</field>
+    <field name="amount_python_compute">result = payslip.amount_aw</field>
+
+        </record>
+<!-- <record id="hr_salary_rule_sales_commission" model="hr.salary.rule">-->
+<!--            <field name="amount_select">code</field>-->
+<!--            <field name="code">SALE</field>-->
+<!--            <field name="category_id" ref="om_hr_payroll.ALW"/>-->
+<!--            <field name="name">Get 1% of sales</field>-->
+<!--            <field name="sequence" eval="17"/>-->
+<!--            <field name="amount_python_compute">result = ((inputs.SALEURO and inputs.SALEURO.amount) + (inputs.SALASIA and inputs.SALASIA.amount)) * 0.01</field>-->
+<!--         </record>-->
+
+
+    </data>
+</odoo>
